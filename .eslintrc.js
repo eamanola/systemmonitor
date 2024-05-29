@@ -1,5 +1,5 @@
 module.exports = {
   root: true,
-  extends: ['airbnb', 'airbnb/hooks'],
+  extends: ['airbnb'],
   plugins: ['react', 'react-native'],
 };

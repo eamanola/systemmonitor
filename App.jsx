@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import {
   SafeAreaView,
@@ -8,7 +8,10 @@ import {
   Text,
   useColorScheme,
   View,
+  Dimensions,
 } from 'react-native';
+
+import Video from 'react-native-video';
 
 import {
   Colors,
@@ -18,6 +21,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+/*
 function Section({children, title}) {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -43,15 +47,42 @@ function Section({children, title}) {
     </View>
   );
 }
+*/
 
-function App() {
+const styles = StyleSheet.create({
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+});
+
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
   };
-
+  const background = require('./media/video.mp4');
   return (
+    <SafeAreaView style={backgroundStyle}>
+      <Video
+        source={background}
+        style={styles.backgroundVideo}
+        repeat={true}
+        muted={true}
+        resizeMode={"cover"}
+        rate={1.0}
+        ignoreSilentSwitch={"obey"}
+        onError={(...e) => console.log(...e)}
+      />
+      <Text style={{ color: 'red' }}>asd</Text>
+    </SafeAreaView>
+  );
+    /*
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
@@ -82,9 +113,9 @@ function App() {
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
+    */
+};
+/*
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
@@ -103,5 +134,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
+*/
 
 export default App;
