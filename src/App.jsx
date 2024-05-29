@@ -5,13 +5,13 @@ import {
   StatusBar,
   StyleSheet,
   useColorScheme,
+  TouchableWithoutFeedback,
+  /*
   View,
   Button,
-  TouchableWithoutFeedback,
   TextInput,
   KeyboardAvoidingView,
   Modal,
-  /*
   Dimensions,
   Text,
   ScrollView,
@@ -30,7 +30,8 @@ import {
   */
 } from 'react-native/Libraries/NewAppScreen';
 
-import background from './media/video.mp4';
+import Settings from './Settings';
+import background from '../media/video.mp4';
 
 /*
 function Section({children, title}) {
@@ -69,60 +70,6 @@ const styles = StyleSheet.create({
     right: 0,
   },
 });
-
-const Settings = ({ onSave, onCancel, visible }) => (
-  <Modal
-    transparent
-    animationType="slide"
-    visible={visible}
-    hardwareAccelerated
-    onRequestClose={onCancel}
-  >
-    <TouchableWithoutFeedback onPress={onCancel}>
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            margin: 30,
-            borderWidth: 2,
-            borderColor: 'red',
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-            justifyContent: 'flex-start',
-            gap: 10,
-          }}
-        >
-          <View
-            style={{
-              borderWidth: 2,
-              borderColor: 'green',
-            }}
-          >
-            <KeyboardAvoidingView>
-              <TextInput
-                placeholder="server uri"
-                style={{
-                  borderWidth: 2,
-                  borderColor: 'blue',
-                }}
-              />
-            </KeyboardAvoidingView>
-          </View>
-          <View
-            style={{
-              borderWidth: 2,
-              borderColor: 'green',
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              gap: 10,
-            }}
-          >
-            <Button onPress={onCancel} title="Cancel" color="#ddd" />
-            <Button onPress={onSave} title="Save" />
-          </View>
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
-  </Modal>
-);
 
 const App = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -170,9 +117,9 @@ const App = () => {
           style={styles.backgroundVideo}
           repeat
           muted
-          resizeMode='cover'
+          resizeMode="cover"
           rate={1.0}
-          ignoreSilentSwitch='obey'
+          ignoreSilentSwitch="obey"
           onError={(...e) => console.log(...e)}
           ref={videoRef}
         />
