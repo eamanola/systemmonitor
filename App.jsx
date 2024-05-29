@@ -1,25 +1,36 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
+  Button,
+  TouchableWithoutFeedback,
+  TextInput,
+  KeyboardAvoidingView,
+  Modal,
+  /*
   Dimensions,
+  Text,
+  ScrollView,
+  */
 } from 'react-native';
 
 import Video from 'react-native-video';
 
 import {
   Colors,
+  /*
   DebugInstructions,
   Header,
   LearnMoreLinks,
   ReloadInstructions,
+  */
 } from 'react-native/Libraries/NewAppScreen';
+
+import background from './media/video.mp4';
 
 /*
 function Section({children, title}) {
@@ -59,30 +70,117 @@ const styles = StyleSheet.create({
   },
 });
 
+const Settings = ({ onSave, onCancel, visible }) => (
+  <Modal
+    transparent
+    animationType="slide"
+    visible={visible}
+    hardwareAccelerated
+    onRequestClose={onCancel}
+  >
+    <TouchableWithoutFeedback onPress={onCancel}>
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            margin: 30,
+            borderWidth: 2,
+            borderColor: 'red',
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            justifyContent: 'flex-start',
+            gap: 10,
+          }}
+        >
+          <View
+            style={{
+              borderWidth: 2,
+              borderColor: 'green',
+            }}
+          >
+            <KeyboardAvoidingView>
+              <TextInput
+                placeholder="server uri"
+                style={{
+                  borderWidth: 2,
+                  borderColor: 'blue',
+                }}
+              />
+            </KeyboardAvoidingView>
+          </View>
+          <View
+            style={{
+              borderWidth: 2,
+              borderColor: 'green',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              gap: 10,
+            }}
+          >
+            <Button onPress={onCancel} title="Cancel" color="#ddd" />
+            <Button onPress={onSave} title="Save" />
+          </View>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  </Modal>
+);
+
 const App = () => {
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  const videoRef = useRef();
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     flex: 1,
   };
-  const background = require('./media/video.mp4');
+
+  const onBackgroundPressed = () => {
+    console.log('onBackgroundPressed');
+    setIsSettingsOpen(!isSettingsOpen);
+  };
+
+  const onSave = () => {
+    setIsSettingsOpen(!isSettingsOpen);
+  };
+
+  const onCancel = () => {
+    setIsSettingsOpen(!isSettingsOpen);
+  };
+
+  useEffect(() => {
+    const { current: player } = videoRef;
+    if (isSettingsOpen) {
+      player.pause();
+    } else {
+      player.resume();
+    }
+  }, [isSettingsOpen]);
+
   return (
     <SafeAreaView style={backgroundStyle}>
-      <Video
-        source={background}
-        style={styles.backgroundVideo}
-        repeat={true}
-        muted={true}
-        resizeMode={"cover"}
-        rate={1.0}
-        ignoreSilentSwitch={"obey"}
-        onError={(...e) => console.log(...e)}
-      />
-      <Text style={{ color: 'red' }}>asd</Text>
+      <StatusBar hidden />
+      <TouchableWithoutFeedback
+        style={{ flex: 1 }}
+        onPress={onBackgroundPressed}
+      >
+        <Video
+          source={background}
+          style={styles.backgroundVideo}
+          repeat
+          muted
+          resizeMode='cover'
+          rate={1.0}
+          ignoreSilentSwitch='obey'
+          onError={(...e) => console.log(...e)}
+          ref={videoRef}
+        />
+      </TouchableWithoutFeedback>
+      <Settings onSave={onSave} onCancel={onCancel} visible={isSettingsOpen} />
     </SafeAreaView>
   );
-    /*
+  /*
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
