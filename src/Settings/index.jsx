@@ -23,13 +23,13 @@ const Settings = ({
   const [serverUri, setServerUri] = useState(settings?.serverUri);
   const [background, setBackground] = useState(settings?.background);
 
-  const saveHandler = () => {
+  const save = () => {
     const newSettings = { serverUri, background };
 
     onSave(newSettings);
   };
 
-  const cancelHandler = () => {
+  const cancel = () => {
     setServerUri(settings?.serverUri);
     setBackground(settings?.background);
 
@@ -45,30 +45,32 @@ const Settings = ({
       transparent
       hardwareAccelerated
       animationType="slide"
-      onRequestClose={cancelHandler}
+      onRequestClose={cancel}
       visible={visible}
     >
-      <TouchableWithoutFeedback onPress={cancelHandler}>
+      <TouchableWithoutFeedback onPress={cancel}>
         <View style={{ flex: 1 }}>
-          <View
-            style={[
-              styles.fieldSet,
-              styles.overlay,
-              { justifyContent: 'flex-start', gap: GAP, margin: (GAP * 3) },
-            ]}
-          >
-            <View style={{ gap: GAP }}>
-              <ServerUri value={serverUri} onChange={setServerUri} />
+          <TouchableWithoutFeedback onPress={() => null}>
+            <View
+              style={[
+                styles.fieldSet,
+                styles.overlay,
+                { justifyContent: 'flex-start', gap: GAP, margin: (GAP * 3) },
+              ]}
+            >
+              <View style={{ gap: GAP }}>
+                <ServerUri value={serverUri} onChange={setServerUri} />
 
-              <BackgroundSelector value={background} onChange={setBackground} />
+                <BackgroundSelector value={background} onChange={setBackground} />
+              </View>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: GAP }}>
+                <Button onPress={cancel} title="Cancel" color={cancelButtonColor} />
+
+                <Button onPress={save} title="Save" />
+              </View>
             </View>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: GAP }}>
-              <Button onPress={cancelHandler} title="Cancel" color={cancelButtonColor} />
-
-              <Button onPress={saveHandler} title="Save" />
-            </View>
-          </View>
+          </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
     </Modal>

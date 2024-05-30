@@ -37,25 +37,27 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (!isSettingsOpen) {
-      setBackgroundPreview(null);
-    }
-  }, [isSettingsOpen]);
-
-  useEffect(() => {
     setIdleTimerDisabled(true);
 
     return () => setIdleTimerDisabled(false);
   }, []);
 
+  useEffect(() => {
+    if (!isSettingsOpen) {
+      setBackgroundPreview(null);
+    }
+  }, [isSettingsOpen]);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar hidden />
+
       <Background
         onPress={onBackgroundPressed}
         background={backgroundPreview || settings?.background}
         paused={isSettingsOpen}
       />
+
       <Settings
         onSave={onSave}
         onCancel={onCancel}

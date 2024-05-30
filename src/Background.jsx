@@ -14,34 +14,37 @@ export const isImage = (type) => type && /^image/i.test(type);
 
 const Background = ({
   onPress,
-  background = {},
+  background = null,
   paused = false,
 }) => {
-  const { uri, type } = background || {};
   let content = null;
 
-  if (isVideo(type)) {
-    content = (
-      <Video
-        source={{ uri }}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-        }}
-        repeat
-        muted
-        resizeMode="cover"
-        rate={1.0}
-        ignoreSilentSwitch="obey"
-        onError={(...e) => console.log(...e)}
-        paused={paused}
-      />
-    );
-  } else if (isImage(type)) {
-    content = <ImageBackground source={{ uri }} style={{ flex: 1, resizeMode: 'cover' }} />;
+  if (background) {
+    const { uri, type } = background;
+
+    if (isVideo(type)) {
+      content = (
+        <Video
+          source={{ uri }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+          }}
+          repeat
+          muted
+          resizeMode="cover"
+          rate={1.0}
+          ignoreSilentSwitch="obey"
+          onError={(...e) => console.log(...e)}
+          paused={paused}
+        />
+      );
+    } else if (isImage(type)) {
+      content = <ImageBackground source={{ uri }} style={{ flex: 1, resizeMode: 'cover' }} />;
+    }
   }
 
   return (

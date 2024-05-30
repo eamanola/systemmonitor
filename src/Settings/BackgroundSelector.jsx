@@ -5,6 +5,7 @@ import { pick, types } from 'react-native-document-picker';
 
 import { background as backgroundProps } from '../prop-types';
 import styles, { GAP, selectBGButtonColor, removeBGButtonColor } from '../styles';
+import { EMPTY_BACKGROUND } from '../constants';
 
 const BackgroundSelector = ({ onChange, value = null }) => {
   const onSelectBackground = async () => {
@@ -32,7 +33,7 @@ const BackgroundSelector = ({ onChange, value = null }) => {
 
       <Button
         title="remove background"
-        onPress={() => onChange(null)}
+        onPress={() => onChange(EMPTY_BACKGROUND)}
         color={removeBGButtonColor}
       />
 
