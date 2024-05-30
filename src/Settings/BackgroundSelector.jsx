@@ -4,11 +4,7 @@ import { View, Button, Text } from 'react-native';
 import { pick, types } from 'react-native-document-picker';
 
 import { background as backgroundProps } from '../prop-types';
-import styles, {
-  GAP,
-  selectBGButtonColor,
-  removeBGButtonColor,
-} from '../styles';
+import styles, { GAP, selectBGButtonColor, removeBGButtonColor } from '../styles';
 
 const BackgroundSelector = ({ onChange, value = null }) => {
   const onSelectBackground = async () => {
@@ -27,12 +23,7 @@ const BackgroundSelector = ({ onChange, value = null }) => {
   };
 
   return (
-    <View
-      style={[
-        styles.fieldSet,
-        { flexDirection: 'row', gap: GAP, alignItems: 'center' },
-      ]}
-    >
+    <View style={[styles.fieldSet, { flexDirection: 'row', gap: GAP, alignItems: 'center' }]}>
       <Button
         title="select background"
         onPress={onSelectBackground}
@@ -44,9 +35,8 @@ const BackgroundSelector = ({ onChange, value = null }) => {
         onPress={() => onChange(null)}
         color={removeBGButtonColor}
       />
-      <Text style={{ flex: 1 }}>
-        { value?.name || '' }
-      </Text>
+
+      <Text style={{ flex: 1 }}>{ value?.name || '' }</Text>
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
 import { SafeAreaView, StatusBar } from 'react-native';
+import { setIdleTimerDisabled } from 'react-native-idle-timer';
 
 import { loadSettings, saveSettings } from './settings';
 import Settings from './Settings';
@@ -41,6 +41,12 @@ const App = () => {
       setBackgroundPreview(null);
     }
   }, [isSettingsOpen]);
+
+  useEffect(() => {
+    setIdleTimerDisabled(true);
+
+    return () => setIdleTimerDisabled(false);
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

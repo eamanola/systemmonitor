@@ -17,7 +17,7 @@ const Background = ({
   background = {},
   paused = false,
 }) => {
-  const { uri, type } = background;
+  const { uri, type } = background || {};
   let content = null;
 
   if (isVideo(type)) {
@@ -41,12 +41,7 @@ const Background = ({
       />
     );
   } else if (isImage(type)) {
-    content = (
-      <ImageBackground
-        source={{ uri }}
-        style={{ flex: 1, resizeMode: 'cover' }}
-      />
-    );
+    content = <ImageBackground source={{ uri }} style={{ flex: 1, resizeMode: 'cover' }} />;
   }
 
   return (

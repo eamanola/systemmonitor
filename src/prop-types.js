@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
 export const background = PropTypes.shape({
-  type: PropTypes.string,
-  uri: PropTypes.string,
-  name: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  uri: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 });
 
 export const serverUri = PropTypes.string;

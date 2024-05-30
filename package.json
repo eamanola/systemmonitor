@@ -16,6 +16,7 @@
     "react": "18.2.0",
     "react-native": "0.74.1",
     "react-native-document-picker": "^9.2.0",
+    "react-native-idle-timer": "^2.2.3",
     "react-native-video": "^6.1.2"
   },
   "devDependencies": {
