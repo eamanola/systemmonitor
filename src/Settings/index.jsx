@@ -78,6 +78,7 @@ const Settings = ({
                 onChange={setBackground}
               />
             </View>
+
             <View
               style={{
                 flexDirection: 'row',

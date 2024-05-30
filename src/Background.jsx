@@ -32,6 +32,7 @@ const Background = ({
   paused = false,
 }) => {
   let content = null;
+
   if (isVideo(type)) {
     content = (
       <Video
@@ -46,15 +47,8 @@ const Background = ({
         paused={paused}
       />
     );
-  }
-
-  if (isImage(type)) {
-    content = (
-      <ImageBackground
-        source={{ uri }}
-        style={styles.backgroundImage}
-      />
-    );
+  } else if (isImage(type)) {
+    content = <ImageBackground source={{ uri }} style={styles.backgroundImage} />;
   }
 
   return (

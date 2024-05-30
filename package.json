@@ -11,6 +11,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-native": "0.74.1",

@@ -8,6 +8,7 @@ import {
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+import { loadSettings, saveSettings } from './settings';
 import Settings from './Settings';
 import Background from './Background';
 
@@ -28,6 +29,7 @@ const App = () => {
   };
 
   const onSave = (newSettings) => {
+    saveSettings(newSettings);
     setSettings(newSettings);
     setIsSettingsOpen(false);
   };
@@ -37,9 +39,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    // TODO: persist
-    console.log(settings);
-  }, [settings]);
+    const loadPersistedSettings = async () => {
+      setSettings(await loadSettings());
+    };
+    loadPersistedSettings();
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
