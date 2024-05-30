@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import {
-  SafeAreaView,
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
-
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { SafeAreaView, StatusBar } from 'react-native';
 
 import { loadSettings, saveSettings } from './settings';
 import Settings from './Settings';
@@ -16,13 +10,6 @@ const App = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [settings, setSettings] = useState(null);
   const [backgroundPreview, setBackgroundPreview] = useState(null);
-
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    flex: 1,
-  };
 
   const onBackgroundPressed = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -56,7 +43,7 @@ const App = () => {
   }, [isSettingsOpen]);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar hidden />
       <Background
         onPress={onBackgroundPressed}

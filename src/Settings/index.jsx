@@ -5,22 +5,13 @@ import {
   TouchableWithoutFeedback,
   View,
   Button,
-  StyleSheet,
 } from 'react-native';
 
-import { GAP, GREY, BORDER_WIDTH } from '../constants';
 import { settings as settingsProp } from '../prop-types';
+import styles, { GAP, cancelButtonColor } from '../styles';
+
 import ServerUri from './ServerUri';
 import BackgroundSelector from './BackgroundSelector';
-
-const styles = StyleSheet.create({
-  fieldSet: {
-    padding: GAP,
-    borderWidth: BORDER_WIDTH,
-    borderColor: GREY,
-    borderRadius: GAP,
-  },
-});
 
 const Settings = ({
   onSave,
@@ -62,36 +53,18 @@ const Settings = ({
           <View
             style={[
               styles.fieldSet,
-              {
-                margin: (GAP * 3),
-                backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                justifyContent: 'flex-start',
-                gap: GAP,
-              },
+              styles.overlay,
+              { justifyContent: 'flex-start', gap: GAP, margin: (GAP * 3) },
             ]}
           >
             <View style={{ gap: GAP }}>
-              <ServerUri
-                fieldSetStyle={styles.fieldSet}
-                value={serverUri}
-                onChange={setServerUri}
-              />
+              <ServerUri value={serverUri} onChange={setServerUri} />
 
-              <BackgroundSelector
-                fieldSetStyle={styles.fieldSet}
-                value={background}
-                onChange={setBackground}
-              />
+              <BackgroundSelector value={background} onChange={setBackground} />
             </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                gap: GAP,
-              }}
-            >
-              <Button onPress={cancelHandler} title="Cancel" color={GREY} />
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: GAP }}>
+              <Button onPress={cancelHandler} title="Cancel" color={cancelButtonColor} />
 
               <Button onPress={saveHandler} title="Save" />
             </View>

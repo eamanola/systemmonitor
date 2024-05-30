@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  StyleSheet,
   ImageBackground,
   View,
   TouchableWithoutFeedback,
@@ -12,20 +11,6 @@ import { background as backgroundProps } from './prop-types';
 
 export const isVideo = (type) => type && /^video/i.test(type);
 export const isImage = (type) => type && /^image/i.test(type);
-
-const styles = StyleSheet.create({
-  backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  backgroundImage: {
-    resizeMode: 'cover',
-    flex: 1,
-  },
-});
 
 const Background = ({
   onPress,
@@ -39,7 +24,13 @@ const Background = ({
     content = (
       <Video
         source={{ uri }}
-        style={styles.backgroundVideo}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+        }}
         repeat
         muted
         resizeMode="cover"
@@ -50,7 +41,12 @@ const Background = ({
       />
     );
   } else if (isImage(type)) {
-    content = <ImageBackground source={{ uri }} style={styles.backgroundImage} />;
+    content = (
+      <ImageBackground
+        source={{ uri }}
+        style={{ flex: 1, resizeMode: 'cover' }}
+      />
+    );
   }
 
   return (
