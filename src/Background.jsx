@@ -6,18 +6,18 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Video from 'react-native-video';
-
-import { background as backgroundProps } from './prop-types';
+import { useSelector } from 'react-redux';
 
 export const isVideo = (type) => type && /^video/i.test(type);
 export const isImage = (type) => type && /^image/i.test(type);
 
 const Background = ({
   onPress,
-  background = null,
   paused = false,
 }) => {
   let content = null;
+
+  const background = useSelector(({ background: value }) => value);
 
   if (background) {
     const { uri, type } = background;
@@ -57,7 +57,6 @@ const Background = ({
 };
 
 Background.propTypes = {
-  background: backgroundProps,
   onPress: PropTypes.func.isRequired,
   paused: PropTypes.bool,
 };

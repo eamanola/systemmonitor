@@ -6,38 +6,49 @@ import {
   View,
   Button,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { settings as settingsProp } from '../prop-types';
 import styles, { GAP, cancelButtonColor } from '../styles';
-
+import { init as initSettings, setSettings } from '../reducers/settings';
+import { setBackground as setBackgroundAction } from '../reducers/background';
 import ServerUri from './ServerUri';
 import BackgroundSelector from './BackgroundSelector';
 
 const Settings = ({
   onSave,
   onCancel,
-  onBackgroundPreview,
   visible,
-  settings = null,
 }) => {
-  const [serverUri, setServerUri] = useState(settings?.serverUri);
-  const [background, setBackground] = useState(settings?.background);
+  const settings = useSelector(({ settings: value }) => value);
+  const [serverUri, setServerUri] = useState(null);
+  const [background, setBackground] = useState(null);
+  const dispatch = useDispatch();
 
   const save = () => {
     const newSettings = { serverUri, background };
+    dispatch(setSettings(newSettings));
 
     onSave(newSettings);
   };
 
   const cancel = () => {
-    setServerUri(settings?.serverUri);
-    setBackground(settings?.background);
+    setServerUri(settings.serverUri);
+    setBackground(settings.background);
 
     onCancel();
   };
 
   useEffect(() => {
-    onBackgroundPreview(background);
+    dispatch(initSettings());
+  }, []);
+
+  useEffect(() => {
+    setBackground(settings.background);
+    setServerUri(settings.serverUri);
+  }, [settings]);
+
+  useEffect(() => {
+    dispatch(setBackgroundAction(background));
   }, [background]);
 
   return (
@@ -80,9 +91,7 @@ const Settings = ({
 Settings.propTypes = {
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  onBackgroundPreview: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-  settings: settingsProp,
 };
 
 export default Settings;
