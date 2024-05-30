@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import Video from 'react-native-video';
 
+import { background as backgroundProps } from './prop-types';
+
 export const isVideo = (type) => type && /^video/i.test(type);
 export const isImage = (type) => type && /^image/i.test(type);
 
@@ -27,10 +29,10 @@ const styles = StyleSheet.create({
 
 const Background = ({
   onPress,
-  type = null,
-  uri = null,
+  background = {},
   paused = false,
 }) => {
+  const { uri, type } = background;
   let content = null;
 
   if (isVideo(type)) {
@@ -61,8 +63,7 @@ const Background = ({
 };
 
 Background.propTypes = {
-  type: PropTypes.string,
-  uri: PropTypes.string,
+  background: backgroundProps,
   onPress: PropTypes.func.isRequired,
   paused: PropTypes.bool,
 };

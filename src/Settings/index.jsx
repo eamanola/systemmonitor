@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { GAP, GREY, BORDER_WIDTH } from '../constants';
-
+import { settings as settingsProp } from '../prop-types';
 import ServerUri from './ServerUri';
 import BackgroundSelector from './BackgroundSelector';
 
@@ -101,14 +101,7 @@ Settings.propTypes = {
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-  settings: PropTypes.shape({
-    serverUri: PropTypes.string,
-    background: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      uri: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }),
-  }),
+  settings: settingsProp,
 };
 
 export default Settings;

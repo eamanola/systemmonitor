@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { KeyboardAvoidingView, TextInput } from 'react-native';
 
+import { style as styleProps, serverUri as serverUriProps } from '../prop-types';
+
 const ServerUri = ({ onChange, value = null, fieldSetStyle = null }) => (
   <KeyboardAvoidingView>
     <TextInput
@@ -15,8 +17,8 @@ const ServerUri = ({ onChange, value = null, fieldSetStyle = null }) => (
 
 ServerUri.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  fieldSetStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  value: serverUriProps,
+  fieldSetStyle: styleProps,
 };
 
 export default ServerUri;

@@ -8,6 +8,7 @@ import {
 import { pick, types } from 'react-native-document-picker';
 
 import { GAP } from '../constants';
+import { style as styleProps, background as backgroundProps } from '../prop-types';
 
 const BackgroundSelector = ({ onChange, value = null, fieldSetStyle = null }) => {
   const onSelectBackground = async () => {
@@ -56,12 +57,8 @@ const BackgroundSelector = ({ onChange, value = null, fieldSetStyle = null }) =>
 
 BackgroundSelector.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.shape({
-    uri: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-  }),
-  fieldSetStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  value: backgroundProps,
+  fieldSetStyle: styleProps,
 };
 
 export default BackgroundSelector;

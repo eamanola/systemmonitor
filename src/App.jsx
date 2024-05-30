@@ -16,6 +16,7 @@ const App = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   // TODO: read persisted
   const [settings, setSettings] = useState(null);
+  // const [backgroundPreview, setBackgroundPreview] = useState(null);
 
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -50,8 +51,7 @@ const App = () => {
       <StatusBar hidden />
       <Background
         onPress={onBackgroundPressed}
-        uri={settings?.background?.uri}
-        type={settings?.background?.type}
+        background={settings?.background}
         paused={isSettingsOpen}
       />
       <Settings
