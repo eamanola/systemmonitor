@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Modal,
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
 const Settings = ({
   onSave,
   onCancel,
+  onBackgroundPreview,
   visible,
   settings = null,
 }) => {
@@ -43,6 +44,10 @@ const Settings = ({
 
     onCancel();
   };
+
+  useEffect(() => {
+    onBackgroundPreview(background);
+  }, [background]);
 
   return (
     <Modal
@@ -100,6 +105,7 @@ const Settings = ({
 Settings.propTypes = {
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  onBackgroundPreview: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
   settings: settingsProp,
 };

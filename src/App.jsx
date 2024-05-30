@@ -14,9 +14,8 @@ import Background from './Background';
 
 const App = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  // TODO: read persisted
   const [settings, setSettings] = useState(null);
-  // const [backgroundPreview, setBackgroundPreview] = useState(null);
+  const [backgroundPreview, setBackgroundPreview] = useState(null);
 
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -27,6 +26,10 @@ const App = () => {
 
   const onBackgroundPressed = () => {
     setIsSettingsOpen(!isSettingsOpen);
+  };
+
+  const onBackgroundPreview = (preview) => {
+    setBackgroundPreview(preview);
   };
 
   const onSave = (newSettings) => {
@@ -46,17 +49,24 @@ const App = () => {
     loadPersistedSettings();
   }, []);
 
+  useEffect(() => {
+    if (!isSettingsOpen) {
+      setBackgroundPreview(null);
+    }
+  }, [isSettingsOpen]);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar hidden />
       <Background
         onPress={onBackgroundPressed}
-        background={settings?.background}
+        background={backgroundPreview || settings?.background}
         paused={isSettingsOpen}
       />
       <Settings
         onSave={onSave}
         onCancel={onCancel}
+        onBackgroundPreview={onBackgroundPreview}
         visible={isSettingsOpen}
         settings={settings}
       />
