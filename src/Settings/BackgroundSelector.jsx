@@ -1,12 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Button, Text } from 'react-native';
+import {
+  View,
+  Button,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import { pick, types } from 'react-native-document-picker';
 
 import { background as backgroundProps } from '../prop-types';
 import styles, { GAP, selectBGButtonColor, removeBGButtonColor } from '../styles';
 
-const BackgroundSelector = ({ onChange, value = null }) => {
+const selectorStyles = StyleSheet.create({
+  ...styles.fieldSet,
+  flexDirection: 'row',
+  gap: GAP,
+  alignItems: 'center',
+});
+
+const BackgroundSelector = ({ onChange, value }) => {
   const onSelectBackground = async () => {
     try {
       const [result] = await pick({
@@ -23,7 +35,7 @@ const BackgroundSelector = ({ onChange, value = null }) => {
   };
 
   return (
-    <View style={[styles.fieldSet, { flexDirection: 'row', gap: GAP, alignItems: 'center' }]}>
+    <View style={selectorStyles}>
       <Button
         title="select background"
         onPress={onSelectBackground}
@@ -36,14 +48,14 @@ const BackgroundSelector = ({ onChange, value = null }) => {
         color={removeBGButtonColor}
       />
 
-      <Text style={{ flex: 1 }}>{ value?.name || '' }</Text>
+      <Text style={{ flex: 1 }}>{value.name}</Text>
     </View>
   );
 };
 
 BackgroundSelector.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: backgroundProps,
+  value: backgroundProps.isRequired,
 };
 
 export default BackgroundSelector;

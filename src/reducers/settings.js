@@ -3,7 +3,7 @@ import { EMPTY_BACKGROUND } from './background';
 
 const INITIAL_STATE = {
   background: EMPTY_BACKGROUND,
-  serverUri: '',
+  server: { uri: '', pollInterval: 10 },
 };
 
 const reducer = (state, action) => {
@@ -50,7 +50,8 @@ export const setSettings = (settings) => async (dispatch) => {
 
 export const init = () => async (dispatch) => {
   const settings = await loadSettings();
-  dispatch({ type: 'SETTINGS_SET', payload: settings });
+  await dispatch({ type: 'SETTINGS_SET', payload: settings });
+  return settings;
 };
 
 export default reducer;

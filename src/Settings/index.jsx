@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Modal,
-  TouchableWithoutFeedback,
-  View,
-  Button,
-} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { Modal, TouchableWithoutFeedback, View } from 'react-native';
 
-import styles, { GAP, cancelButtonColor } from '../styles';
-import { init as initSettings, setSettings } from '../reducers/settings';
-import { setBackground as setBackgroundAction } from '../reducers/background';
-import ServerUri from './ServerUri';
+import { setSettings } from '../reducers/settings';
+import { setBackground } from '../reducers/background';
+
+import Form from './Form';
+import Server from './Server';
 import BackgroundSelector from './BackgroundSelector';
 
 const Settings = ({
@@ -20,36 +16,42 @@ const Settings = ({
   visible,
 }) => {
   const settings = useSelector(({ settings: value }) => value);
-  const [serverUri, setServerUri] = useState(null);
-  const [background, setBackground] = useState(null);
+  const [server, setServer] = useState(settings.server);
+  const background = useSelector(({ background: value }) => value);
+
   const dispatch = useDispatch();
 
+  const onServerUriChanged = (uri) => {
+    setServer({ ...server, uri });
+  };
+
+  const onServerPollIntervalChanged = (pollInterval) => {
+    setServer({ ...server, pollInterval });
+  };
+
+  const onBackgroundChanged = (newValue) => {
+    dispatch(setBackground(newValue));
+  };
+
   const save = () => {
-    const newSettings = { serverUri, background };
+    const newSettings = { server, background };
     dispatch(setSettings(newSettings));
 
     onSave(newSettings);
   };
 
   const cancel = () => {
-    setServerUri(settings.serverUri);
-    setBackground(settings.background);
+    setServer(settings.server);
+    onBackgroundChanged(settings.background);
 
     onCancel();
   };
 
   useEffect(() => {
-    dispatch(initSettings());
-  }, []);
-
-  useEffect(() => {
-    setBackground(settings.background);
-    setServerUri(settings.serverUri);
+    setServer(settings.server);
   }, [settings]);
 
-  useEffect(() => {
-    dispatch(setBackgroundAction(background));
-  }, [background]);
+  const hasChanges = (JSON.stringify({ server, background }) === JSON.stringify(settings));
 
   return (
     <Modal
@@ -61,27 +63,15 @@ const Settings = ({
     >
       <TouchableWithoutFeedback onPress={cancel}>
         <View style={{ flex: 1 }}>
-          <TouchableWithoutFeedback onPress={() => null}>
-            <View
-              style={[
-                styles.fieldSet,
-                styles.overlay,
-                { justifyContent: 'flex-start', gap: GAP, margin: (GAP * 3) },
-              ]}
-            >
-              <View style={{ gap: GAP }}>
-                <ServerUri value={serverUri} onChange={setServerUri} />
+          <Form onCancel={cancel} onSave={save} hasChanges={hasChanges}>
+            <Server
+              value={server}
+              onUriChange={onServerUriChanged}
+              onPollIntervalChange={onServerPollIntervalChanged}
+            />
 
-                <BackgroundSelector value={background} onChange={setBackground} />
-              </View>
-
-              <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: GAP }}>
-                <Button onPress={cancel} title="Cancel" color={cancelButtonColor} />
-
-                <Button onPress={save} title="Save" />
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
+            <BackgroundSelector value={background} onChange={onBackgroundChanged} />
+          </Form>
         </View>
       </TouchableWithoutFeedback>
     </Modal>
