@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Text, View, StyleSheet } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
-import styles from '../styles';
+import gstyles from '../styles';
 
-const gaugeStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   textStyle: {
     textAlign: 'center',
     borderColor: 'red',
@@ -21,7 +21,7 @@ const Gauge = ({
 }) => (
   <View
     style={{
-      ...styles.overlay,
+      ...gstyles.overlay,
       borderRadius: (size / 2),
       width: size,
       height: size,
@@ -54,13 +54,13 @@ const Gauge = ({
             {
               (/* fill */) => (
                 <View>
-                  <Text style={{ ...gaugeStyles.textStyle, fontSize: 42 }}>
+                  <Text style={{ ...styles.textStyle, fontSize: 42 }}>
                     {temperature.join(' ')}
                   </Text>
-                  <Text style={{ ...gaugeStyles.textStyle, fontSize: 12 }}>
+                  <Text style={{ ...styles.textStyle, fontSize: 12 }}>
                     {name}
                   </Text>
-                  <Text style={{ ...gaugeStyles.textStyle, fontSize: 24 }}>
+                  <Text style={{ ...styles.textStyle, fontSize: 24 }}>
                     {fanspeed[0] ? `Fan: ${fanspeed.join(' ')}` : null}
                   </Text>
                 </View>

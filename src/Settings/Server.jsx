@@ -11,22 +11,22 @@ import {
 import { ping } from '../services/sensor-data';
 
 import { server as serverProps } from '../prop-types';
-import styles, {
+import gstyles, {
   selectBGButtonColor,
   GAP,
   GREEN,
   RED,
 } from '../styles';
 
-const serverStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   textInputContainer: {
     flex: 1,
     flexDirection: 'row',
     gap: GAP,
     alignItems: 'center',
   },
-  textInput: { ...styles.fieldSet, flex: 1 },
-  pollInput: styles.fieldSet,
+  textInput: { ...gstyles.fieldSet, flex: 1 },
+  pollInput: gstyles.fieldSet,
   rowStyles: { flexDirection: 'row', gap: GAP },
 });
 
@@ -47,14 +47,14 @@ const Server = ({ onUriChange, onPollIntervalChange, value }) => {
   };
 
   return (
-    <View style={serverStyles.rowStyles}>
-      <KeyboardAvoidingView style={serverStyles.textInputContainer}>
+    <View style={styles.rowStyles}>
+      <KeyboardAvoidingView style={styles.textInputContainer}>
         <TextInput
           placeholder="server uri"
           onChangeText={handleUriChange}
           value={value.uri}
           style={[
-            serverStyles.textInput,
+            styles.textInput,
             pingSuccess !== NO_PING
               && { borderColor: (pingSuccess === SUCCESS_PING ? GREEN : RED) },
           ]}
@@ -64,7 +64,7 @@ const Server = ({ onUriChange, onPollIntervalChange, value }) => {
           placeholder="sec"
           onChangeText={onPollIntervalChange}
           value={value.pollInterval}
-          style={serverStyles.pollInput}
+          style={styles.pollInput}
           inputMode="numeric"
         />
 

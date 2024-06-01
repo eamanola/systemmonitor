@@ -7,13 +7,13 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import styles, { GAP, cancelButtonColor } from '../styles';
+import gstyles, { GAP, cancelButtonColor } from '../styles';
 import { children as childrenProps } from '../prop-types';
 
-const formStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   form: {
-    ...styles.fieldSet,
-    ...styles.overlay,
+    ...gstyles.fieldSet,
+    ...gstyles.overlay,
     justifyContent: 'flex-start',
     gap: GAP,
     margin: (GAP * 3),
@@ -29,12 +29,12 @@ const Form = ({
   children = null,
 }) => (
   <TouchableWithoutFeedback onPress={() => null}>
-    <View style={formStyles.form}>
-      <View style={formStyles.content}>
+    <View style={styles.form}>
+      <View style={styles.content}>
         {children}
       </View>
 
-      <View style={formStyles.buttonRow}>
+      <View style={styles.buttonRow}>
         <Button onPress={onCancel} title="Cancel" color={cancelButtonColor} />
 
         <Button onPress={onSave} disabled={hasChanges} title="Save" />

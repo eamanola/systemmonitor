@@ -37,7 +37,6 @@ const SensorData = () => {
   };
 
   return (
-
     <View
       style={styles}
     >

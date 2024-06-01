@@ -9,10 +9,10 @@ import {
 import { pick, types } from 'react-native-document-picker';
 
 import { background as backgroundProps } from '../prop-types';
-import styles, { GAP, selectBGButtonColor, removeBGButtonColor } from '../styles';
+import gstyles, { GAP, selectBGButtonColor, removeBGButtonColor } from '../styles';
 
-const selectorStyles = StyleSheet.create({
-  ...styles.fieldSet,
+const styles = StyleSheet.create({
+  ...gstyles.fieldSet,
   flexDirection: 'row',
   gap: GAP,
   alignItems: 'center',
@@ -35,7 +35,7 @@ const BackgroundSelector = ({ onChange, value }) => {
   };
 
   return (
-    <View style={selectorStyles}>
+    <View style={styles}>
       <Button
         title="select background"
         onPress={onSelectBackground}
