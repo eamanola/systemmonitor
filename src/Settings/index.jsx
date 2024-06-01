@@ -21,6 +21,9 @@ const Settings = ({
 
   const dispatch = useDispatch();
 
+  const edited = { server, background };
+  const hasChanges = (JSON.stringify(edited) === JSON.stringify(settings));
+
   const onServerUriChanged = (uri) => {
     setServer({ ...server, uri });
   };
@@ -34,7 +37,7 @@ const Settings = ({
   };
 
   const save = () => {
-    const newSettings = { server, background };
+    const newSettings = edited;
     dispatch(setSettings(newSettings));
 
     onSave(newSettings);
@@ -50,8 +53,6 @@ const Settings = ({
   useEffect(() => {
     setServer(settings.server);
   }, [settings]);
-
-  const hasChanges = (JSON.stringify({ server, background }) === JSON.stringify(settings));
 
   return (
     <Modal

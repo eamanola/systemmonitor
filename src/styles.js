@@ -3,8 +3,10 @@ import { StyleSheet } from 'react-native';
 export const GAP = 10;
 export const BORDER_WIDTH = 2;
 export const GREY = '#ddd';
-export const selectBGButtonColor = '#0F0';
-export const removeBGButtonColor = '#F00';
+export const RED = '#F00';
+export const GREEN = '#0F0';
+export const selectBGButtonColor = GREEN;
+export const removeBGButtonColor = RED;
 export const cancelButtonColor = GREY;
 
 export default StyleSheet.create({
