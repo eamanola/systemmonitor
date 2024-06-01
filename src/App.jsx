@@ -6,6 +6,7 @@ import loadStates from './loadstates';
 
 import Settings from './Settings';
 import Background from './Background';
+import SensorData from './SensorData';
 
 const App = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -29,6 +30,8 @@ const App = () => {
         onPress={onBackgroundPressed}
         paused={isSettingsOpen}
       />
+
+      <SensorData paused={isSettingsOpen} />
 
       <Settings
         onSave={closeSettings}

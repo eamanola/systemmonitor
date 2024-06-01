@@ -29,7 +29,7 @@ const Settings = ({
   };
 
   const onServerPollIntervalChanged = (pollInterval) => {
-    setServer({ ...server, pollInterval });
+    setServer({ ...server, pollInterval: Number(pollInterval) });
   };
 
   const onBackgroundChanged = (newValue) => {

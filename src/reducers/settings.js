@@ -49,6 +49,8 @@ export const setSettings = (settings) => async (dispatch) => {
 };
 
 export const init = () => async (dispatch) => {
+  // await dispatch(setSettings(null));
+
   const settings = await loadSettings();
   await dispatch({ type: 'SETTINGS_SET', payload: settings });
   return settings;
