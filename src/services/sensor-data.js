@@ -4,18 +4,18 @@ export const fetchSensorData = async (serverUri) => {
     const response = await fetch(endPoint);
     return response.json();
   } catch (err) {
-    console.log(err);
+    console.error('fetchSensorData', err);
     return null;
   }
 };
 
-export const ping = async (serverUri) => {
+export const checkHealth = async (serverUri) => {
   try {
     const endPoint = `${serverUri.toLowerCase()}/health`;
-    const result = await fetch(endPoint);
-    return result.status === 200;
+    const response = await fetch(endPoint);
+    return response.status === 200;
   } catch (err) {
-    console.log(err);
+    console.error('checkHealth', err);
     return false;
   }
 };

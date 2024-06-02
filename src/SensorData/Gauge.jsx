@@ -35,7 +35,6 @@ const Gauge = ({
       tintColor="orange"
       backgroundColor="yellow"
       tintColorSecondary="#ff0000"
-      onAnimationComplete={() => console.log('onAnimationComplete')}
       duration={2000}
       rotation={180}
     >
@@ -47,7 +46,6 @@ const Gauge = ({
             prefill={0}
             fill={utilization[0]}
             tintColor="#00FF00"
-            onAnimationComplete={() => console.log('onAnimationComplete')}
             duration={2000}
             rotation={180}
           >
@@ -55,7 +53,7 @@ const Gauge = ({
               (/* fill */) => (
                 <View>
                   <Text style={{ ...styles.textStyle, fontSize: 42 }}>
-                    {temperature.join(' ')}
+                    {temperature[0] ? [temperature[0].toFixed(1), temperature[1]].join(' ') : null}
                   </Text>
                   <Text style={{ ...styles.textStyle, fontSize: 12 }}>
                     {name}

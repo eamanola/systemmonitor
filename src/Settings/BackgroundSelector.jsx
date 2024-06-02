@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   alignItems: 'center',
 });
 
-const BackgroundSelector = ({ onChange, value }) => {
+const BackgroundSelector = ({ onChange, background }) => {
   const onSelectBackground = async () => {
     try {
       const [result] = await pick({
@@ -48,14 +48,14 @@ const BackgroundSelector = ({ onChange, value }) => {
         color={removeBGButtonColor}
       />
 
-      <Text style={{ flex: 1 }}>{value.name}</Text>
+      <Text style={{ flex: 1 }}>{background.name}</Text>
     </View>
   );
 };
 
 BackgroundSelector.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: backgroundProps.isRequired,
+  background: backgroundProps.isRequired,
 };
 
 export default BackgroundSelector;

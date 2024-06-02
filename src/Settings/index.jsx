@@ -29,7 +29,7 @@ const Settings = ({
   };
 
   const onServerPollIntervalChanged = (pollInterval) => {
-    setServer({ ...server, pollInterval: Number(pollInterval) });
+    setServer({ ...server, pollInterval });
   };
 
   const onBackgroundChanged = (newValue) => {
@@ -66,12 +66,12 @@ const Settings = ({
         <View style={{ flex: 1 }}>
           <Form onCancel={cancel} onSave={save} hasChanges={hasChanges}>
             <Server
-              value={server}
+              server={server}
               onUriChange={onServerUriChanged}
               onPollIntervalChange={onServerPollIntervalChanged}
             />
 
-            <BackgroundSelector value={background} onChange={onBackgroundChanged} />
+            <BackgroundSelector background={background} onChange={onBackgroundChanged} />
           </Form>
         </View>
       </TouchableWithoutFeedback>

@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 
-import { ping } from '../services/sensor-data';
+import { ping } from '../reducers/sensor-data';
 
 import { server as serverProps } from '../prop-types';
 import gstyles, {
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   rowStyles: { flexDirection: 'row', gap: GAP },
 });
 
-const Server = ({ onUriChange, onPollIntervalChange, value }) => {
+const Server = ({ onUriChange, onPollIntervalChange, server }) => {
   const NO_PING = 0;
   const SUCCESS_PING = 1;
   const FAIL_PING = 2;
@@ -38,12 +38,21 @@ const Server = ({ onUriChange, onPollIntervalChange, value }) => {
   const [pingSuccess, setPingSuccess] = useState(NO_PING);
 
   const onPing = async () => {
-    setPingSuccess(await ping(value.uri) ? SUCCESS_PING : FAIL_PING);
+    const success = await ping(server.uri);
+    setPingSuccess(success ? SUCCESS_PING : FAIL_PING);
   };
 
   const handleUriChange = (newValue) => {
     setPingSuccess(NO_PING);
     onUriChange(newValue);
+  };
+
+  const pollIntervalChangedHandler = (newValue) => {
+    const validValue = Number(newValue)
+      || Number(newValue.slice(0, -1))
+      || 0;
+
+    onPollIntervalChange(validValue);
   };
 
   return (
@@ -52,20 +61,22 @@ const Server = ({ onUriChange, onPollIntervalChange, value }) => {
         <TextInput
           placeholder="server uri"
           onChangeText={handleUriChange}
-          value={value.uri}
+          value={server.uri}
           style={[
             styles.textInput,
             pingSuccess !== NO_PING
               && { borderColor: (pingSuccess === SUCCESS_PING ? GREEN : RED) },
           ]}
-          TODO={onPollIntervalChange}
+          inputMode="url"
         />
+
         <TextInput
-          placeholder="sec"
-          onChangeText={onPollIntervalChange}
-          value={value.pollInterval}
+          placeholder="poll interval (s)"
+          onChangeText={pollIntervalChangedHandler}
+          value={String(server.pollInterval || '')}
           style={styles.pollInput}
           inputMode="numeric"
+          keyboardType="numeric"
         />
 
         <Button onPress={onPing} title="test" color={selectBGButtonColor} />
@@ -78,7 +89,7 @@ const Server = ({ onUriChange, onPollIntervalChange, value }) => {
 Server.propTypes = {
   onUriChange: PropTypes.func.isRequired,
   onPollIntervalChange: PropTypes.func.isRequired,
-  value: serverProps.isRequired,
+  server: serverProps.isRequired,
 };
 
 export default Server;

@@ -3,7 +3,7 @@ import { EMPTY_BACKGROUND } from './background';
 
 const INITIAL_STATE = {
   background: EMPTY_BACKGROUND,
-  server: { uri: '', pollInterval: 10 },
+  server: { uri: 'http://192.168.1.151:8080init', pollInterval: 10 },
 };
 
 const reducer = (state, action) => {

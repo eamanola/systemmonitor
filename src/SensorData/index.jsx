@@ -1,8 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
-import Gauge from './Gauge';
 
 import { GAP } from '../styles';
+
+import Gauge from './Gauge';
+import Poller from './Poller';
 
 const styles = StyleSheet.create({
   position: 'absolute',
@@ -15,48 +19,34 @@ const styles = StyleSheet.create({
   margin: GAP * 3,
 });
 
-const SensorData = () => {
-  const testData = {
-    cpu: {
-      fanspeed: [508, 'rpm'],
-      name: 'AMD Ryzen 7 5800X 8-Core Processor',
-      temperature: [40, '°C'],
-      utilization: [30, '%'],
-    },
-    fans: {
-      front: [483, 'rpm'],
-      rear: [415, 'rpm'],
-    },
-    gpu: {
-      fanspeed: [10, '%'],
-      memory: [16, '%'],
-      name: 'NVIDIA GeForce RTX 4060',
-      temperature: [44, '°C'],
-      utilization: [20, '%'],
-    },
-  };
+const SensorData = ({ paused }) => {
+  const { cpu, gpu /* , fans */ } = useSelector(({ sensors }) => sensors);
 
   return (
-    <View
-      style={styles}
-    >
+    <View style={styles}>
+      <Poller paused={paused} />
+
       <Gauge
-        fanspeed={testData.gpu.fanspeed}
-        name={testData.gpu.name}
-        temperature={testData.gpu.temperature}
-        utilization={testData.gpu.utilization}
+        fanspeed={gpu.fanspeed}
+        name={gpu.name}
+        temperature={gpu.temperature}
+        utilization={gpu.utilization}
       />
 
       <View />
 
       <Gauge
-        fanspeed={testData.cpu.fanspeed}
-        name={testData.cpu.name}
-        temperature={testData.cpu.temperature}
-        utilization={testData.cpu.utilization}
+        fanspeed={cpu.fanspeed}
+        name={cpu.name}
+        temperature={cpu.temperature}
+        utilization={cpu.utilization}
       />
     </View>
   );
+};
+
+SensorData.propTypes = {
+  paused: PropTypes.bool.isRequired,
 };
 
 export default SensorData;
