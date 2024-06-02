@@ -21,7 +21,7 @@ const Poller = ({ paused }) => {
     };
 
     const intervalId = setInterval(doPoll, interval);
-    console.log(`Poller start poll(${interval}ms)`, intervalId);
+    console.info(`Poller start poll(${interval}ms)`, intervalId);
 
     return intervalId;
   };
@@ -35,14 +35,14 @@ const Poller = ({ paused }) => {
     };
 
     const intervalId = setInterval(doPing, interval);
-    console.log(`Poller start pinging(${interval}ms)`, intervalId);
+    console.info(`Poller start pinging(${interval}ms)`, intervalId);
 
     return intervalId;
   };
 
   const stopInterval = (intervalId) => () => {
     if (intervalId) {
-      console.log('Poller stop interval', intervalId);
+      console.info('Poller stop interval', intervalId);
       clearInterval(intervalId);
     }
   };
@@ -53,7 +53,7 @@ const Poller = ({ paused }) => {
   );
 
   useEffect(
-    () => { console.log(`Poller Fails: ${failedPolls}`); },
+    () => { console.info(`Poller Fails: ${failedPolls}`); },
     [failedPolls],
   );
 

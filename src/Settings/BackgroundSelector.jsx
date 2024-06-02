@@ -30,7 +30,7 @@ const BackgroundSelector = ({ onChange, background }) => {
       const { uri, type, name } = result;
       onChange({ uri, type, name });
     } catch (err) {
-      console.log(err);
+      console.warn(err);
     }
   };
 

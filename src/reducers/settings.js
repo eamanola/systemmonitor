@@ -28,7 +28,7 @@ const saveSettings = async (settings) => {
     await save(SETTINGS_KEY, JSON.stringify(settings));
     return true;
   } catch (err) {
-    console.log(err);
+    console.error('saveSettings', err);
     return false;
   }
 };
@@ -38,7 +38,7 @@ const loadSettings = async () => {
     const settings = JSON.parse(await load(SETTINGS_KEY));
     return settings;
   } catch (err) {
-    console.log(err);
+    console.error('loadSettings', err);
     return null;
   }
 };

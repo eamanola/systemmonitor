@@ -7,8 +7,9 @@ module.exports = {
     { files: ['**/*.{js,jsx,mjs,cjs}'] },
   ],
   rules: {
-    'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
-    'react/require-default-props': [2, { functions: 'defaultArguments' }],
+    'react/function-component-definition': ['error', { namedComponents: 'arrow-function' }],
+    'react/require-default-props': ['error', { functions: 'defaultArguments' }],
+    'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
   },
   parserOptions: { ecmaVersion: 12 },
 };
