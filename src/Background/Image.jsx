@@ -4,7 +4,13 @@ import { ImageBackground, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({ flex: 1, resizeMode: 'cover' });
 
-const Image = ({ uri }) => <ImageBackground source={{ uri }} style={styles} />;
+const Image = ({ uri }) => (
+  <ImageBackground
+    source={{ uri }}
+    onError={(...e) => console.error(...e)}
+    style={styles}
+  />
+);
 
 Image.propTypes = {
   uri: PropTypes.string.isRequired,

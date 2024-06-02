@@ -31,7 +31,10 @@ const App = () => {
         paused={isSettingsOpen}
       />
 
-      <SensorData paused={isSettingsOpen} />
+      <SensorData
+        onPress={onBackgroundPressed}
+        paused={isSettingsOpen}
+      />
 
       <Settings
         onSave={closeSettings}

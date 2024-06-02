@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderColor: 'red',
   },
+  temperatureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 const Gauge = ({
@@ -33,40 +38,50 @@ const Gauge = ({
       prefill={0}
       fill={(temperature[0] / 100) * 100}
       tintColor="orange"
-      backgroundColor="yellow"
-      tintColorSecondary="#ff0000"
+      backgroundColor={temperature[0] > 0 ? 'yellow' : ''}
+      tintColorSecondary={temperature[0] > 70 ? '#ff0000' : ''}
       duration={2000}
       rotation={180}
     >
-      {
-        (/* fill */) => (
-          <AnimatedCircularProgress
-            size={size - 10}
-            width={20}
-            prefill={0}
-            fill={utilization[0]}
-            tintColor="#00FF00"
-            duration={2000}
-            rotation={180}
-          >
-            {
-              (/* fill */) => (
-                <View>
+      {(/* fill */) => (
+        <AnimatedCircularProgress
+          size={size - 10}
+          width={20}
+          prefill={0}
+          fill={utilization[0]}
+          tintColor="#00FF00"
+          duration={2000}
+          rotation={180}
+        >
+          {(/* fill */) => (
+            <View>
+              { !!temperature[0] && (
+                <View style={styles.temperatureRow}>
                   <Text style={{ ...styles.textStyle, fontSize: 42 }}>
-                    {temperature[0] ? [temperature[0].toFixed(1), temperature[1]].join(' ') : null}
-                  </Text>
-                  <Text style={{ ...styles.textStyle, fontSize: 12 }}>
-                    {name}
+                    {temperature[0].toFixed(1)}
                   </Text>
                   <Text style={{ ...styles.textStyle, fontSize: 24 }}>
-                    {fanspeed[0] ? `Fan: ${fanspeed.join(' ')}` : null}
+                    {temperature[1]}
                   </Text>
                 </View>
-              )
-            }
-          </AnimatedCircularProgress>
-        )
-      }
+              )}
+              <Text style={{ ...styles.textStyle, fontSize: 12 }}>
+                {name}
+              </Text>
+              {!!fanspeed[0] && (
+                <View>
+                  <Text style={{ ...styles.textStyle, fontSize: 24 }}>
+                    {fanspeed.join(' ')}
+                  </Text>
+                  <Text style={{ ...styles.textStyle, fontSize: 12 }}>
+                    Fan
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
+        </AnimatedCircularProgress>
+      )}
     </AnimatedCircularProgress>
   </View>
 );
