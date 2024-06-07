@@ -82,6 +82,13 @@ https://github.com/eamanola/sensors-server
     },
 }
 ```
+
+## adb
+
+As the device will be behind a glass, no touch available, it is recommended to use adb for interaction (ios equialent?).
+
+[sensors-server/adb](https://github.com/eamanola/sensors-server/tree/master/adb) contains some useful commands for interacting with the phone, eg sleep / wakeup / and unlock, over usb.
+
 # Development
 
 This is a vanilla react-native, with all ts stripped out. please see below, and refer to react-native sources for more info.
