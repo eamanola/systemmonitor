@@ -6,7 +6,6 @@ import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
 import { GAP } from '../styles';
 
 import Gauge from './Gauge';
-import Poller from './Poller';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,14 +22,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const SensorData = ({ paused, onPress }) => {
+const SensorData = ({ onPress }) => {
   const { cpu, gpu /* , fans */ } = useSelector(({ sensors }) => sensors);
 
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.content}>
-          <Poller paused={paused} />
 
           <Gauge
             fanspeed={gpu.fanspeed}
@@ -52,7 +50,6 @@ const SensorData = ({ paused, onPress }) => {
 };
 
 SensorData.propTypes = {
-  paused: PropTypes.bool.isRequired,
   onPress: PropTypes.func.isRequired,
 };
 

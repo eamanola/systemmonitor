@@ -21,7 +21,7 @@ const Video = ({ uri, paused }) => (
     resizeMode="cover"
     rate={1.0}
     ignoreSilentSwitch="obey"
-    onError={(...e) => console.warn(...e)}
+    onError={(...err) => console.warn(...err)}
   />
 );
 

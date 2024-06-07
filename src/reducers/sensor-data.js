@@ -1,4 +1,4 @@
-import { fetchSensorData, checkHealth } from '../services/sensor-data';
+import { fetchSensorData } from '../services/sensor-data';
 
 const EMPTY_FIELD = [0, ''];
 const INITIAL_STATE = {
@@ -36,15 +36,12 @@ const reducer = (state, action) => {
   return newState;
 };
 
-export const poll = (serverUri) => async (dispatch) => {
-  const response = await fetchSensorData(serverUri);
-  dispatch({ type: 'SENSORDATA_SET', payload: response });
-  return !!response;
-};
+export const update = ({ uri }) => async (dispatch) => {
+  const response = await fetchSensorData(uri);
 
-export const ping = async (serverUri) => {
-  const healthOK = await checkHealth(serverUri);
-  return healthOK;
+  dispatch({ type: 'SENSORDATA_SET', payload: response });
+
+  return response !== null;
 };
 
 export default reducer;

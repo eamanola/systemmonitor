@@ -4,20 +4,22 @@ export const EMPTY_BACKGROUND = {
   name: '',
 };
 
+const INITIAL_STATE = EMPTY_BACKGROUND;
+
 const reducer = (state, action) => {
   let newState;
 
   switch (action.type) {
     case 'BACKGROUND_SET':
-      newState = action.payload || EMPTY_BACKGROUND;
+      newState = action.payload || INITIAL_STATE;
       break;
 
     case 'BACKGROUND_RM':
-      newState = EMPTY_BACKGROUND;
+      newState = INITIAL_STATE;
       break;
 
     default:
-      newState = state || EMPTY_BACKGROUND;
+      newState = state || INITIAL_STATE;
   }
 
   return newState;

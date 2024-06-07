@@ -7,10 +7,12 @@ import loadStates from './loadstates';
 import Settings from './Settings';
 import Background from './Background';
 import SensorData from './SensorData';
+import Updater from './Updater';
 
 const App = () => {
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const dispatch = useDispatch();
+
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const onBackgroundPressed = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -24,23 +26,15 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Updater paused={isSettingsOpen} />
+
       <StatusBar hidden />
 
-      <Background
-        onPress={onBackgroundPressed}
-        paused={isSettingsOpen}
-      />
+      <Background onPress={onBackgroundPressed} paused={isSettingsOpen} />
 
-      <SensorData
-        onPress={onBackgroundPressed}
-        paused={isSettingsOpen}
-      />
+      <SensorData onPress={onBackgroundPressed} />
 
-      <Settings
-        onSave={closeSettings}
-        onCancel={closeSettings}
-        visible={isSettingsOpen}
-      />
+      <Settings onSave={closeSettings} onCancel={closeSettings} visible={isSettingsOpen} />
     </SafeAreaView>
   );
 };

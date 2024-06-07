@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 
-import { ping } from '../reducers/sensor-data';
+import ping from '../services/ping';
 
 import { server as serverProps } from '../prop-types';
 import gstyles, {

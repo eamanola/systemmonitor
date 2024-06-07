@@ -13,8 +13,7 @@ const Background = ({
   onPress,
   paused,
 }) => {
-  const background = useSelector(({ background: value }) => value);
-  const { uri, type } = background;
+  const { uri, type } = useSelector(({ background }) => background);
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
