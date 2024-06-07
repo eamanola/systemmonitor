@@ -67,7 +67,7 @@ https://github.com/eamanola/sensors-server
 * body:
 
 ```
-`
+{
     cpu: {
         name: string,
         fanspeed: [value: number, unit: string],
@@ -80,7 +80,7 @@ https://github.com/eamanola/sensors-server
         temperture: [value: number, unit: string],
         utilization: [value: number, unit: string],
     },
-`
+}
 ```
 # Development
 
