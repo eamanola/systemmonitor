@@ -9,10 +9,7 @@ import Image from './Image';
 const isVideo = (type) => /^video/i.test(type);
 const isImage = (type) => /^image/i.test(type);
 
-const Background = ({
-  onPress,
-  paused,
-}) => {
+const Background = ({ onPress, paused }) => {
   const { uri, type } = useSelector(({ background }) => background);
 
   return (

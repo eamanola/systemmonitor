@@ -8,15 +8,14 @@ import {
   View,
 } from 'react-native';
 
-import ping from '../services/ping';
-
 import { server as serverProps } from '../prop-types';
 import gstyles, {
-  selectBGButtonColor,
+  safeButtonColor,
   GAP,
   GREEN,
   RED,
 } from '../styles';
+import ping from '../services/ping';
 
 const styles = StyleSheet.create({
   textInputContainer: {
@@ -30,24 +29,27 @@ const styles = StyleSheet.create({
   rowStyles: { flexDirection: 'row', gap: GAP },
 });
 
+const PING_STATES = {
+  NONE: 0,
+  SUCCESS: 1,
+  FAIL: 2,
+};
+
 const Server = ({ onUriChange, onPollIntervalChange, server }) => {
-  const NO_PING = 0;
-  const SUCCESS_PING = 1;
-  const FAIL_PING = 2;
+  const [pingState, setPingState] = useState(PING_STATES.NONE);
 
-  const [pingSuccess, setPingSuccess] = useState(NO_PING);
-
-  const onPing = async () => {
-    const success = await ping(server.uri);
-    setPingSuccess(success ? SUCCESS_PING : FAIL_PING);
+  const pingHandler = async () => {
+    const success = (await ping(server.uri)) === true;
+    setPingState(success ? PING_STATES.SUCCESS : PING_STATES.FAIL);
   };
 
-  const handleUriChange = (newValue) => {
-    setPingSuccess(NO_PING);
+  const uriChangeHandler = (newValue) => {
+    setPingState(PING_STATES.NONE);
+
     onUriChange(newValue);
   };
 
-  const pollIntervalChangedHandler = (newValue) => {
+  const pollIntervalChangeHandler = (newValue) => {
     const validValue = Number(newValue)
       || Number(newValue.slice(0, -1))
       || 0;
@@ -60,26 +62,25 @@ const Server = ({ onUriChange, onPollIntervalChange, server }) => {
       <KeyboardAvoidingView style={styles.textInputContainer}>
         <TextInput
           placeholder="server uri"
-          onChangeText={handleUriChange}
+          onChangeText={uriChangeHandler}
           value={server.uri}
           style={[
             styles.textInput,
-            pingSuccess !== NO_PING
-              && { borderColor: (pingSuccess === SUCCESS_PING ? GREEN : RED) },
+            pingState !== PING_STATES.NONE
+              && { borderColor: (pingState === PING_STATES.SUCCESS ? GREEN : RED) },
           ]}
           inputMode="url"
         />
 
         <TextInput
           placeholder="poll interval (s)"
-          onChangeText={pollIntervalChangedHandler}
+          onChangeText={pollIntervalChangeHandler}
           value={String(server.pollInterval || '')}
           style={styles.pollInput}
           inputMode="numeric"
-          keyboardType="numeric"
         />
 
-        <Button onPress={onPing} title="test" color={selectBGButtonColor} />
+        <Button onPress={pingHandler} title="test" color={safeButtonColor} />
       </KeyboardAvoidingView>
 
     </View>

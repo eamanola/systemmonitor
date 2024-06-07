@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -20,10 +20,12 @@ const Updater = ({ paused }) => {
 
   /* useEffect(() => { setHasConnection(true); }, [server]); */
 
+  /*
   useEffect(
-    () => { console.info('connection:', hasConnection); },
+    () => { console.log('connection:', hasConnection); },
     [hasConnection],
   );
+  */
 
   return (
     hasConnection

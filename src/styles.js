@@ -1,13 +1,15 @@
 import { StyleSheet } from 'react-native';
 
+const BORDER_WIDTH = 2;
+const GREY = '#ddd';
+const DARK_GREY = '#999';
+const TRANLUCENT_WHITE = 'rgba(255, 255, 255, 0.7)';
 export const GAP = 10;
-export const BORDER_WIDTH = 2;
-export const GREY = '#ddd';
 export const RED = '#F00';
 export const GREEN = '#0F0';
-export const selectBGButtonColor = GREEN;
-export const removeBGButtonColor = RED;
-export const cancelButtonColor = GREY;
+export const safeButtonColor = GREEN;
+export const dangerButtonColor = RED;
+export const discardButtonColor = DARK_GREY;
 
 export default StyleSheet.create({
   fieldSet: {
@@ -17,6 +19,6 @@ export default StyleSheet.create({
     borderRadius: GAP,
   },
   overlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: TRANLUCENT_WHITE,
   },
 });

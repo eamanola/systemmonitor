@@ -1,6 +1,7 @@
 import { fetchSensorData } from '../services/sensor-data';
 
 const EMPTY_FIELD = [0, ''];
+
 const INITIAL_STATE = {
   cpu: {
     name: '',

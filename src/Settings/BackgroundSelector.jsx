@@ -9,7 +9,7 @@ import {
 import { pick, types } from 'react-native-document-picker';
 
 import { background as backgroundProps } from '../prop-types';
-import gstyles, { GAP, selectBGButtonColor, removeBGButtonColor } from '../styles';
+import gstyles, { GAP, safeButtonColor, dangerButtonColor } from '../styles';
 
 const styles = StyleSheet.create({
   ...gstyles.fieldSet,
@@ -18,40 +18,38 @@ const styles = StyleSheet.create({
   alignItems: 'center',
 });
 
-const BackgroundSelector = ({ onChange, background }) => {
-  const onSelectBackground = async () => {
-    try {
-      const [result] = await pick({
-        mode: 'open',
-        requestLongTermAccess: true,
-        type: [types.video, types.images],
-      });
+const onSelectBackground = (onChange) => async () => {
+  try {
+    const [result] = await pick({
+      mode: 'open',
+      requestLongTermAccess: true,
+      type: [types.video, types.images],
+    });
 
-      const { uri, type, name } = result;
-      onChange({ uri, type, name });
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
-  return (
-    <View style={styles}>
-      <Button
-        title="select background"
-        onPress={onSelectBackground}
-        color={selectBGButtonColor}
-      />
-
-      <Button
-        title="remove background"
-        onPress={() => onChange(null)}
-        color={removeBGButtonColor}
-      />
-
-      <Text style={{ flex: 1 }}>{background.name}</Text>
-    </View>
-  );
+    const { uri, type, name } = result;
+    onChange({ uri, type, name });
+  } catch (err) {
+    console.warn(err);
+  }
 };
+
+const BackgroundSelector = ({ onChange, background }) => (
+  <View style={styles}>
+    <Button
+      title="file"
+      onPress={onSelectBackground(onChange)}
+      color={safeButtonColor}
+    />
+
+    <Button
+      title="remove"
+      onPress={() => onChange(null)}
+      color={dangerButtonColor}
+    />
+
+    <Text style={{ flex: 1 }}>{background.name}</Text>
+  </View>
+);
 
 BackgroundSelector.propTypes = {
   onChange: PropTypes.func.isRequired,

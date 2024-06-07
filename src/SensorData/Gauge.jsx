@@ -6,15 +6,8 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import gstyles from '../styles';
 
 const styles = StyleSheet.create({
-  textStyle: {
-    textAlign: 'center',
-    borderColor: 'red',
-  },
-  temperatureRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  textStyle: { textAlign: 'center' },
+  temperatureRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
 });
 
 const Gauge = ({
@@ -57,23 +50,23 @@ const Gauge = ({
             <View>
               { !!temperature[0] && (
                 <View style={styles.temperatureRow}>
-                  <Text style={{ ...styles.textStyle, fontSize: 42 }}>
+                  <Text style={[styles.textStyle, { fontSize: 42 }]}>
                     {temperature[0].toFixed(1)}
                   </Text>
-                  <Text style={{ ...styles.textStyle, fontSize: 24 }}>
+                  <Text style={[styles.textStyle, { fontSize: 24 }]}>
                     {temperature[1]}
                   </Text>
                 </View>
               )}
-              <Text style={{ ...styles.textStyle, fontSize: 12 }}>
+              <Text style={[styles.textStyle, { fontSize: 12 }]}>
                 {name}
               </Text>
               {!!fanspeed[0] && (
                 <View>
-                  <Text style={{ ...styles.textStyle, fontSize: 24 }}>
+                  <Text style={[styles.textStyle, { fontSize: 24 }]}>
                     {fanspeed.join(' ')}
                   </Text>
-                  <Text style={{ ...styles.textStyle, fontSize: 12 }}>
+                  <Text style={[styles.textStyle, { fontSize: 12 }]}>
                     Fan
                   </Text>
                 </View>

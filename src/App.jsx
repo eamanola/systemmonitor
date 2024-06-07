@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { SafeAreaView, StatusBar } from 'react-native';
 
 import loadStates from './loadstates';
 

@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import { update as updateSensorData } from '../reducers/sensor-data';
-
 import { server as serverProps } from '../prop-types';
+import { update as updateSensorData } from '../reducers/sensor-data';
 
 import Ticker from './Ticker';
 
@@ -27,6 +26,7 @@ const Poll = ({ server, paused, onFail }, { MAX_FAILS = 1 } = {}) => {
   useEffect(
     () => {
       console.info('Poll Fails:', fails);
+
       if (fails >= MAX_FAILS) {
         onFail();
       }

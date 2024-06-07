@@ -15,11 +15,12 @@ const Settings = ({
   onCancel,
   visible,
 }) => {
+  const dispatch = useDispatch();
+
   const settings = useSelector(({ settings: value }) => value);
-  const [server, setServer] = useState(settings.server);
   const background = useSelector(({ background: value }) => value);
 
-  const dispatch = useDispatch();
+  const [server, setServer] = useState(settings.server);
 
   const edited = { server, background };
   const hasChanges = (JSON.stringify(edited) === JSON.stringify(settings));
@@ -40,7 +41,7 @@ const Settings = ({
     const newSettings = edited;
     dispatch(setSettings(newSettings));
 
-    onSave(newSettings);
+    onSave();
   };
 
   const cancel = () => {

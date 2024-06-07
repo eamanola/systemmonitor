@@ -15,11 +15,7 @@ const styles = StyleSheet.create({
     right: 0,
     margin: GAP * 3,
   },
-  content: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+  content: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
 });
 
 const SensorData = ({ onPress }) => {

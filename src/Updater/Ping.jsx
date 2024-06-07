@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { server as serverProps } from '../prop-types';
 import ping from '../services/ping';
+
 import Ticker from './Ticker';
 
 const Ping = ({ server, paused, onConnection }, { interval = 5 * 1000 } = {}) => {

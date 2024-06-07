@@ -7,8 +7,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import gstyles, { GAP, cancelButtonColor } from '../styles';
 import { children as childrenProps } from '../prop-types';
+import gstyles, { GAP, discardButtonColor } from '../styles';
 
 const styles = StyleSheet.create({
   form: {
@@ -35,7 +35,7 @@ const Form = ({
       </View>
 
       <View style={styles.buttonRow}>
-        <Button onPress={onCancel} title="Cancel" color={cancelButtonColor} />
+        <Button onPress={onCancel} title="Cancel" color={discardButtonColor} />
 
         <Button onPress={onSave} disabled={hasChanges} title="Save" />
       </View>
