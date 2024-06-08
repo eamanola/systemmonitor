@@ -21,6 +21,17 @@ const styles = StyleSheet.create({
 const SensorData = ({ onPress }) => {
   const { cpu, gpu /* , fans */ } = useSelector(({ sensors }) => sensors);
 
+  /*
+  const testData = {
+    temperature: [20, '*C'],
+    utilization: [20, 'rpm'],
+    name: '111111ssssssssssssssssssss111111111',
+    fanspeed: [1000, 'rpm'],
+    memory: [20, '%'],
+  };
+  const cpu = gpu = testData;
+  */
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={onPress}>
@@ -31,6 +42,7 @@ const SensorData = ({ onPress }) => {
             name={gpu.name}
             temperature={gpu.temperature}
             utilization={gpu.utilization}
+            memory={gpu.memory}
           />
 
           <Gauge

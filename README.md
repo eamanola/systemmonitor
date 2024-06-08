@@ -20,11 +20,11 @@ Features:
 
   * and fan speed
 
+  * memory usage (gpu)
+
 ## road map
 
 - all fan speeds
-
-- gpu memory usage
 
 - theme support
 
@@ -72,13 +72,14 @@ https://github.com/eamanola/sensors-server
         name: string,
         fanspeed: [value: number, unit: string],
         temperture: [value: number, unit: string],
-        utilization: [value: number, unit: string],
+        utilization: [value: number(0-100), unit: '%'],
     },
     gpu: {
         name: string,
         fanspeed: [value: number, unit: string],
         temperture: [value: number, unit: string],
-        utilization: [value: number, unit: string],
+        utilization: [value: number(0-100), unit: '%'],
+        memory: [value: number(0-100), unit: '%'],
     },
 }
 ```
