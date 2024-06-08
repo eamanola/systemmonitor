@@ -10,6 +10,7 @@ import { pick, types } from 'react-native-document-picker';
 
 import { background as backgroundProps } from '../prop-types';
 import gstyles, { GAP, safeButtonColor, dangerButtonColor } from '../styles';
+import logger from '../logger';
 
 const styles = StyleSheet.create({
   ...gstyles.fieldSet,
@@ -29,7 +30,7 @@ const onSelectBackground = (onChange) => async () => {
     const { uri, type, name } = result;
     onChange({ uri, type, name });
   } catch (err) {
-    console.warn(err);
+    logger.warn(err);
   }
 };
 

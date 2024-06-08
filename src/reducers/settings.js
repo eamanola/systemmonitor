@@ -1,5 +1,6 @@
 import { load, save } from '../persist';
 import { EMPTY_BACKGROUND } from './background';
+import logger from '../logger';
 
 const INITIAL_STATE = {
   background: EMPTY_BACKGROUND,
@@ -28,7 +29,7 @@ const saveSettings = async (settings) => {
     await save(SETTINGS_KEY, JSON.stringify(settings));
     return true;
   } catch (err) {
-    console.error('saveSettings', err);
+    logger.error('saveSettings', err);
     return false;
   }
 };
@@ -38,7 +39,7 @@ const loadSettings = async () => {
     const settings = JSON.parse(await load(SETTINGS_KEY));
     return settings;
   } catch (err) {
-    console.error('loadSettings', err);
+    logger.error('loadSettings', err);
     return null;
   }
 };

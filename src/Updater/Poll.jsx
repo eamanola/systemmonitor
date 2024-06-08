@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { server as serverProps } from '../prop-types';
 import { update as updateSensorData } from '../reducers/sensor-data';
+import logger from '../logger';
 
 import Ticker from './Ticker';
 
@@ -25,7 +26,7 @@ const Poll = ({ server, paused, onFail }, { MAX_FAILS = 1 } = {}) => {
 
   useEffect(
     () => {
-      console.info('Poll Fails:', fails);
+      logger.info('Poll Fails:', fails);
 
       if (fails >= MAX_FAILS) {
         onFail();

@@ -9,7 +9,7 @@ module.exports = {
   rules: {
     'react/function-component-definition': ['error', { namedComponents: 'arrow-function' }],
     'react/require-default-props': ['error', { functions: 'defaultArguments' }],
-    'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
+    // 'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
   },
   parserOptions: { ecmaVersion: 12 },
 };

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
+// import logger from '../logger';
+
 import Ping from './Ping';
 import Poll from './Poll';
 
@@ -18,14 +20,9 @@ const Updater = ({ paused }) => {
     setHasConnection(false);
   };
 
-  /* useEffect(() => { setHasConnection(true); }, [server]); */
+  // useEffect(() => { setHasConnection(true); }, [server]);
 
-  /*
-  useEffect(
-    () => { console.log('connection:', hasConnection); },
-    [hasConnection],
-  );
-  */
+  // useEffect(() => { logger.log('connection:', hasConnection); }, [hasConnection]);
 
   return (
     hasConnection

@@ -1,10 +1,12 @@
+import logger from '../logger';
+
 export const fetchSensorData = async (serverUri) => {
   try {
     const endPoint = `${serverUri.toLowerCase()}/sensors`;
     const response = await fetch(endPoint);
     return response.json();
   } catch (err) {
-    console.error('fetchSensorData', err);
+    logger.error('fetchSensorData', err);
     return null;
   }
 };

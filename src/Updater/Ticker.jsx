@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import logger from '../logger';
+
 const Ticker = ({
   onTick,
   interval,
@@ -11,7 +13,7 @@ const Ticker = ({
   const start = () => {
     const intervalId = setInterval(onTick, interval);
 
-    console.info(name, 'start', `(${interval}ms)`, intervalId);
+    logger.info(name, 'start', `(${interval}ms)`, intervalId);
 
     return intervalId;
   };
@@ -19,7 +21,7 @@ const Ticker = ({
   const stop = (intervalId) => {
     clearInterval(intervalId);
 
-    console.info(name, 'stop', intervalId);
+    logger.info(name, 'stop', intervalId);
   };
 
   useEffect(() => {
