@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { Text, View, StyleSheet } from 'react-native';
 
 import gstyles from '../styles';
+import { valueArray } from '../prop-types';
 
 import CircularProgress from './CircularProgress';
 
 const styles = StyleSheet.create({
-  textStyle: { textAlign: 'center' },
   temperatureRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
+  textStyle: { textAlign: 'center' },
 });
 
 const TEMPERATURE_WIDTH = 5;
@@ -88,19 +89,13 @@ const Gauge = ({
   </View>
 );
 
-const validProp = (value) => (
-  value.length === 2
-  && typeof (value[0]) === 'number'
-  && typeof (value[1]) === 'string'
-);
-
 Gauge.propTypes = {
   size: PropTypes.number,
-  temperature: PropTypes.arrayOf(validProp),
-  utilization: PropTypes.arrayOf(validProp),
+  temperature: valueArray,
+  utilization: valueArray,
   name: PropTypes.string,
-  fanspeed: PropTypes.arrayOf(validProp),
-  memory: PropTypes.arrayOf(validProp),
+  fanspeed: valueArray,
+  memory: valueArray,
 };
 
 export default Gauge;

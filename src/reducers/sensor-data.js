@@ -9,10 +9,7 @@ const INITIAL_STATE = {
     temperature: EMPTY_FIELD,
     utilization: EMPTY_FIELD,
   },
-  fans: {
-    front: EMPTY_FIELD,
-    rear: EMPTY_FIELD,
-  },
+  fans: [],
   gpu: {
     name: '',
     fanspeed: EMPTY_FIELD,

@@ -20,15 +20,19 @@ Features:
 
   * and fan speed
 
-  * memory usage (gpu)
+- displaying gpu:
+
+  * memory usage
+
+- displaying other fans
+
+  * speed
 
 ## road map
 
-- all fan speeds
-
 - theme support
 
-- orientation support
+- orientation support (only developed for landscape)
 
 - general linux backend
 
@@ -83,6 +87,10 @@ https://github.com/eamanola/sensors-server
         utilization: [value: number(0-100), unit: '%'],
         memory: [value: number(0-100), unit: '%'],
     },
+    fans: [
+        { name: string, speed: [value: number, unit: string] },
+        ...
+    ]
 }
 ```
 

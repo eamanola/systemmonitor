@@ -21,4 +21,12 @@ export const settings = PropTypes.shape({
   background: background.isRequired,
 });
 
+export const valueArray = PropTypes.arrayOf(
+  (value) => (
+    value.length === 2
+    && typeof (value[0]) === 'number'
+    && typeof (value[1]) === 'string'
+  ),
+);
+
 export default null;
