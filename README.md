@@ -28,6 +28,8 @@ Features:
 
 - theme support
 
+- orientation support
+
 - general linux backend
 
 - general windows backend
