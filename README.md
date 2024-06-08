@@ -32,8 +32,6 @@ Features:
 
 - theme support
 
-- orientation support (only developed for landscape)
-
 - general linux backend
 
 - general windows backend

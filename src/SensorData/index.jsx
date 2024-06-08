@@ -7,6 +7,7 @@ import { GAP } from '../styles';
 
 import Gauge from './Gauge';
 import Fans from './Fans';
+import useOrientation from '../../util/use-orientation';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,27 +17,56 @@ const styles = StyleSheet.create({
     right: 0,
     margin: GAP * 3,
   },
-  content: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  containerPOR: {
+    left: null,
+    top: 0,
+  },
+  content: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
+  },
+  contentPOR: { flexDirection: '' },
 });
 
-const SensorData = ({ onPress }) => {
-  const { cpu, gpu, fans } = useSelector(({ sensors }) => sensors);
+/*
+const testData = {
+  temperature: [20, '*C'],
+  utilization: [20, 'rpm'],
+  name: '111111ssssssssssssssssssss111111111',
+  fanspeed: [1000, 'rpm'],
+  memory: [20, '%'],
+};
+const useTestData = () => ({
+  cpu: testData,
+  gpu: testData,
+  fans: [
+    { name: 'fan 1', speed:[888, 'rpm'] },
+    { name: 'fan 2', speed:[888, 'rpm'] },
+    { name: 'fan 3', speed:[888, 'rpm'] },
+    { name: 'fan 4', speed:[888, 'rpm'] },
+    { name: 'fan 5', speed:[888, 'rpm'] },
+    { name: 'fan 6', speed:[888, 'rpm'] },
+    { name: 'fan 7', speed:[888, 'rpm'] },
+    { name: 'fan 8', speed:[888, 'rpm'] },
+    { name: 'fan 9', speed:[888, 'rpm'] },
+    { name: 'fan 10', speed:[888, 'rpm'] },
+    { name: 'fan 11', speed:[888, 'rpm'] },
+    { name: 'fan 12', speed:[888, 'rpm'] },
+  ]
+});
+*/
 
-  /*
-  const testData = {
-    temperature: [20, '*C'],
-    utilization: [20, 'rpm'],
-    name: '111111ssssssssssssssssssss111111111',
-    fanspeed: [1000, 'rpm'],
-    memory: [20, '%'],
-  };
-  const cpu = gpu = testData;
-  */
+const SensorData = ({ onPress }) => {
+  // const { cpu, gpu, fans } = useTestData();
+  const { cpu, gpu, fans } = useSelector(({ sensors }) => sensors);
+  const { isPortrait } = useOrientation();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isPortrait && styles.containerPOR]}>
       <TouchableWithoutFeedback onPress={onPress}>
-        <View style={styles.content}>
+        <View style={[styles.content, isPortrait && styles.contentPOR]}>
           <Gauge
             fanspeed={gpu.fanspeed}
             name={gpu.name}

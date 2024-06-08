@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const BORDER_WIDTH = 2;
-const GREY = '#ddd';
+export const GREY = '#ddd';
 const DARK_GREY = '#999';
 const TRANLUCENT_WHITE = 'rgba(255, 255, 255, 0.7)';
 export const GAP = 10;
@@ -20,5 +20,9 @@ export default StyleSheet.create({
   },
   overlay: {
     backgroundColor: TRANLUCENT_WHITE,
+  },
+  debug: {
+    borderWidth: 2,
+    borderColor: 'red',
   },
 });
