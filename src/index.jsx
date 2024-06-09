@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-
 import { setIdleTimerDisabled } from 'react-native-idle-timer';
 
 import store from './store';

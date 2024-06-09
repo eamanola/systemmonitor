@@ -1,24 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { View, StyleSheet } from 'react-native';
 
+import useOrientation from '../util/use-orientation';
+import { valueArray } from '../prop-types';
 import { GAP } from '../styles';
 
-import { valueArray } from '../prop-types';
-
 import Fan from './Fan';
-import useOrientation from '../../util/use-orientation';
 
 const styles = StyleSheet.create({
-  fans: {
-    gap: GAP,
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
+  fans: { gap: GAP, flexWrap: 'wrap', justifyContent: 'center' },
 });
 
-const Fans = ({ fans = null }) => {
+const Fans = ({ fans = [] }) => {
   const { isPortrait, width, height } = useOrientation();
 
   const fansStyles = {
@@ -27,17 +21,13 @@ const Fans = ({ fans = null }) => {
     flexDirection: isPortrait ? '' : 'row',
   };
 
-  return fans?.length
-    ? (
-      <View style={[styles.fans, fansStyles]}>
-        {
-          fans.map(({ name, speed }) => (
-            <Fan key={Math.random()} name={name} speed={speed} />
-          ))
-        }
-      </View>
-    )
-    : null;
+  return fans.length > 0 && (
+    <View style={[styles.fans, fansStyles]}>
+      {fans.map(({ name, speed }) => (
+        <Fan key={Math.random()} name={name} speed={speed} />
+      ))}
+    </View>
+  );
 };
 
 Fans.propTypes = {

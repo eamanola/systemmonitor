@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { View, TouchableWithoutFeedback } from 'react-native';
 
-import Video from './Video';
 import Image from './Image';
+import Video from './Video';
 
 const isVideo = (type) => /^video/i.test(type);
 const isImage = (type) => /^image/i.test(type);

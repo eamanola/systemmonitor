@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   KeyboardAvoidingView,
@@ -8,6 +9,7 @@ import {
   View,
 } from 'react-native';
 
+import { checkConnection } from '../reducers/server-status';
 import { server as serverProps } from '../prop-types';
 import gstyles, {
   safeButtonColor,
@@ -15,7 +17,6 @@ import gstyles, {
   GREEN,
   RED,
 } from '../styles';
-import ping from '../services/ping';
 
 const styles = StyleSheet.create({
   textInputContainer: {
@@ -36,20 +37,21 @@ const PING_STATES = {
 };
 
 const Server = ({ onUriChange, onPollIntervalChange, server }) => {
+  const dispatch = useDispatch();
+  const { reachable } = useSelector(({ serverStatus }) => serverStatus);
   const [pingState, setPingState] = useState(PING_STATES.NONE);
 
   const pingHandler = async () => {
-    const success = (await ping(server.uri)) === true;
-    setPingState(success ? PING_STATES.SUCCESS : PING_STATES.FAIL);
+    dispatch(checkConnection(server));
   };
 
-  const uriChangeHandler = (newValue) => {
+  const uriChangedHandler = (newValue) => {
     setPingState(PING_STATES.NONE);
 
     onUriChange(newValue);
   };
 
-  const pollIntervalChangeHandler = (newValue) => {
+  const pollIntervalChangedHandler = (newValue) => {
     const validValue = Number(newValue)
       || Number(newValue.slice(0, -1))
       || 0;
@@ -57,12 +59,16 @@ const Server = ({ onUriChange, onPollIntervalChange, server }) => {
     onPollIntervalChange(validValue);
   };
 
+  useEffect(() => {
+    setPingState(reachable ? PING_STATES.SUCCESS : PING_STATES.FAIL);
+  }, [reachable]);
+
   return (
     <View style={styles.rowStyles}>
       <KeyboardAvoidingView style={styles.textInputContainer}>
         <TextInput
           placeholder="server uri"
-          onChangeText={uriChangeHandler}
+          onChangeText={uriChangedHandler}
           value={server.uri}
           style={[
             styles.textInput,
@@ -74,7 +80,7 @@ const Server = ({ onUriChange, onPollIntervalChange, server }) => {
 
         <TextInput
           placeholder="poll interval (s)"
-          onChangeText={pollIntervalChangeHandler}
+          onChangeText={pollIntervalChangedHandler}
           value={String(server.pollInterval || '')}
           style={styles.pollInput}
           inputMode="numeric"

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { SafeAreaView, StatusBar } from 'react-native';
 
-import loadStates from './loadstates';
+import loadStates from './util/loadstates';
 
-import Settings from './Settings';
 import Background from './Background';
 import SensorData from './SensorData';
+import Settings from './Settings';
 import Updater from './Updater';
 
 const App = () => {
@@ -26,9 +26,9 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Updater paused={isSettingsOpen} />
-
       <StatusBar hidden />
+
+      <Updater paused={isSettingsOpen} />
 
       <Background onPress={onBackgroundPressed} paused={isSettingsOpen} />
 

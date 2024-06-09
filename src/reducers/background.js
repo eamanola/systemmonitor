@@ -1,17 +1,13 @@
-export const EMPTY_BACKGROUND = {
-  type: 'unhandled-type',
-  uri: '',
-  name: '',
-};
+export const EMPTY_BACKGROUND = { type: 'unhandled-type', uri: '', name: '' };
 
 const INITIAL_STATE = EMPTY_BACKGROUND;
 
-const reducer = (state, action) => {
+const reducer = (state, { type, payload }) => {
   let newState;
 
-  switch (action.type) {
+  switch (type) {
     case 'BACKGROUND_SET':
-      newState = action.payload || INITIAL_STATE;
+      newState = payload ? { ...payload } : INITIAL_STATE;
       break;
 
     case 'BACKGROUND_RM':

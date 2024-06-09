@@ -1,33 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-
-// import logger from '../logger';
 
 import Ping from './Ping';
 import Poll from './Poll';
 
 const Updater = ({ paused }) => {
-  const { server } = useSelector(({ settings }) => settings);
-
-  const [hasConnection, setHasConnection] = useState(true);
-
-  const onConnection = () => {
-    setHasConnection(true);
-  };
-
-  const onFail = () => {
-    setHasConnection(false);
-  };
-
-  // useEffect(() => { setHasConnection(true); }, [server]);
-
-  // useEffect(() => { logger.log('connection:', hasConnection); }, [hasConnection]);
+  const { reachable } = useSelector(({ serverStatus }) => serverStatus);
 
   return (
-    hasConnection
-      ? <Poll server={server} paused={paused} onFail={onFail} />
-      : <Ping server={server} paused={paused} onConnection={onConnection} />
+    reachable
+      ? <Poll paused={paused} />
+      : <Ping paused={paused} />
   );
 };
 

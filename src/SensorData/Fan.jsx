@@ -1,31 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { View, Text, StyleSheet } from 'react-native';
 
 import { valueArray } from '../prop-types';
 import gstyles, { GAP, GREY } from '../styles';
 
 const styles = StyleSheet.create({
-  bg: {
-    backgroundColor: GREY,
-    padding: GAP / 2,
-  },
-  fan: {
-    ...gstyles.overlay,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 2,
-    aspectRatio: 1,
-  },
+  bg: { ...gstyles.overlay, borderColor: GREY, borderWidth: GAP / 2 },
+  fan: { alignItems: 'center', justifyContent: 'center', aspectRatio: 1 },
 });
 
-const innerCircleWidth = (outerCircleWidth) => outerCircleWidth - (2 * styles.bg.padding);
+const innerCircleWidth = (outerCircleWidth) => outerCircleWidth - (2 * styles.bg.borderWidth);
 
 const Fan = ({ name, speed, width = 90 }) => (
-  <View
-    style={[styles.bg, { width, borderRadius: width / 2 }]}
-  >
+  <View style={[styles.bg, { width, borderRadius: width / 2 }]}>
     <View
       key={Math.random()}
       style={[

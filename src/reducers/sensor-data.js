@@ -1,30 +1,13 @@
 import { fetchSensorData } from '../services/sensor-data';
 
-const EMPTY_FIELD = [0, ''];
+const INITIAL_STATE = { cpu: null, fans: null, gpu: null };
 
-const INITIAL_STATE = {
-  cpu: {
-    name: '',
-    fanspeed: EMPTY_FIELD,
-    temperature: EMPTY_FIELD,
-    utilization: EMPTY_FIELD,
-  },
-  fans: [],
-  gpu: {
-    name: '',
-    fanspeed: EMPTY_FIELD,
-    memory: EMPTY_FIELD,
-    temperature: EMPTY_FIELD,
-    utilization: EMPTY_FIELD,
-  },
-};
-
-const reducer = (state, action) => {
+const reducer = (state, { type, payload }) => {
   let newState;
 
-  switch (action.type) {
+  switch (type) {
     case 'SENSORDATA_SET':
-      newState = action.payload || INITIAL_STATE;
+      newState = payload ? { ...payload } : INITIAL_STATE;
       break;
 
     default:
@@ -34,8 +17,8 @@ const reducer = (state, action) => {
   return newState;
 };
 
-export const update = ({ uri }) => async (dispatch) => {
-  const response = await fetchSensorData(uri);
+export const update = ({ uri }, options) => async (dispatch) => {
+  const response = await fetchSensorData(uri, options);
 
   dispatch({ type: 'SENSORDATA_SET', payload: response });
 

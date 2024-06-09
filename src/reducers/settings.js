@@ -1,18 +1,19 @@
-import { load, save } from '../persist';
+import logger from '../util/logger';
+import { load, save } from '../util/persist';
+
 import { EMPTY_BACKGROUND } from './background';
-import logger from '../logger';
 
 const INITIAL_STATE = {
   background: EMPTY_BACKGROUND,
-  server: { uri: 'http://192.168.1.151:8080init', pollInterval: 10 },
+  server: { uri: 'http://192.168.1.151:8080init', pollInterval: 5 },
 };
 
-const reducer = (state, action) => {
+const reducer = (state, { type, payload }) => {
   let newState;
 
-  switch (action.type) {
+  switch (type) {
     case 'SETTINGS_SET':
-      newState = action.payload || INITIAL_STATE;
+      newState = payload ? { ...payload } : INITIAL_STATE;
       break;
 
     default:
@@ -27,6 +28,7 @@ const SETTINGS_KEY = 'settings';
 const saveSettings = async (settings) => {
   try {
     await save(SETTINGS_KEY, JSON.stringify(settings));
+
     return true;
   } catch (err) {
     logger.error('saveSettings', err);
@@ -37,6 +39,7 @@ const saveSettings = async (settings) => {
 const loadSettings = async () => {
   try {
     const settings = JSON.parse(await load(SETTINGS_KEY));
+
     return settings;
   } catch (err) {
     logger.error('loadSettings', err);
@@ -53,7 +56,7 @@ export const setSettings = (settings) => async (dispatch) => {
 export const init = () => async (dispatch) => {
   const settings = await loadSettings();
 
-  await dispatch({ type: 'SETTINGS_SET', payload: settings });
+  dispatch({ type: 'SETTINGS_SET', payload: settings });
 
   return settings;
 };

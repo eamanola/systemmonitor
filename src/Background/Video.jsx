@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet } from 'react-native';
 import VideoBackground from 'react-native-video';
 
-import logger from '../logger';
+import logger from '../util/logger';
 
 const styles = StyleSheet.create({
   position: 'absolute',
@@ -23,7 +23,7 @@ const Video = ({ uri, paused }) => (
     resizeMode="cover"
     rate={1.0}
     ignoreSilentSwitch="obey"
-    onError={(...err) => logger.warn(...err)}
+    onError={logger.warn}
   />
 );
 

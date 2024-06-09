@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, TouchableWithoutFeedback, View } from 'react-native';
 
-import { setSettings } from '../reducers/settings';
 import { setBackground } from '../reducers/background';
+import { setSettings } from '../reducers/settings';
 
+import BackgroundSelector from './BackgroundSelector';
 import Form from './Form';
 import Server from './Server';
-import BackgroundSelector from './BackgroundSelector';
 
 const Settings = ({
   onSave,
@@ -17,13 +17,14 @@ const Settings = ({
 }) => {
   const dispatch = useDispatch();
 
+  // persisted values
   const settings = useSelector(({ settings: value }) => value);
-  const background = useSelector(({ background: value }) => value);
 
+  // temporary values
+  const background = useSelector(({ background: value }) => value);
   const [server, setServer] = useState(settings.server);
 
-  const edited = { server, background };
-  const hasChanges = (JSON.stringify(edited) === JSON.stringify(settings));
+  const hasChanges = (JSON.stringify({ server, background }) === JSON.stringify(settings));
 
   const onServerUriChanged = (uri) => {
     setServer({ ...server, uri });
@@ -38,7 +39,7 @@ const Settings = ({
   };
 
   const save = () => {
-    const newSettings = edited;
+    const newSettings = { server, background };
     dispatch(setSettings(newSettings));
 
     onSave();

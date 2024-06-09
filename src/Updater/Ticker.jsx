@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import logger from '../logger';
+import logger from '../util/logger';
+import { server as serverProps } from '../prop-types';
 
 const Ticker = ({
   onTick,
@@ -45,6 +46,7 @@ Ticker.propTypes = {
     PropTypes.bool,
     PropTypes.number,
     PropTypes.string,
+    serverProps,
   ])),
   name: PropTypes.string,
 };

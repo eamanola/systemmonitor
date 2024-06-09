@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { server as serverProps } from '../prop-types';
-import ping from '../services/ping';
+import { checkConnection } from '../reducers/server-status';
 
 import Ticker from './Ticker';
 
-const Ping = ({ server, paused, onConnection }, { interval = 5 * 1000 } = {}) => {
-  const onTick = async () => {
-    if ((await ping(server.uri)) === true) {
-      onConnection();
-    }
+const Ping = ({ paused }, { interval = 5 * 1000 } = {}) => {
+  const dispatch = useDispatch();
+  const { server } = useSelector(({ settings }) => settings);
+  const { reachable } = useSelector(({ serverStatus }) => serverStatus);
+
+  const onTick = () => {
+    dispatch(checkConnection(server));
   };
 
   return (
@@ -19,18 +21,13 @@ const Ping = ({ server, paused, onConnection }, { interval = 5 * 1000 } = {}) =>
       interval={interval}
       paused={paused}
       name="Ping"
-      restartDeps={[
-        // server, // for now paused is always fired, before server change possible
-        // paused, // paused explicitly declared in Ticker
-      ]}
+      restartDeps={[reachable, server, paused]}
     />
   );
 };
 
 Ping.propTypes = {
-  server: serverProps.isRequired,
   paused: PropTypes.bool.isRequired,
-  onConnection: PropTypes.func.isRequired,
 };
 
 export default Ping;
