@@ -25,10 +25,16 @@ const onSelectBackground = (onChange) => async () => {
       mode: 'open',
       requestLongTermAccess: true,
       type: [types.video, types.images],
+      copyTo: 'cachesDirectory',
     });
 
-    const { uri, type, name } = result;
-    onChange({ uri, type, name });
+    const {
+      uri,
+      type,
+      name,
+      fileCopyUri,
+    } = result;
+    onChange({ uri: fileCopyUri || uri, type, name });
   } catch (err) {
     logger.warn(err);
   }

@@ -30,6 +30,8 @@ Features:
 
 ## road map
 
+- websocket connection / remote settings control
+
 - theme support
 
 ### backend
