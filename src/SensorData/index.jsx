@@ -31,8 +31,6 @@ const SensorData = ({ onPress }) => {
   const { cpu, gpu, fans } = useSelector(({ sensors }) => sensors);
   const { isPortrait } = useOrientation();
 
-  const activeFans = (fans || []).filter(({ speed }) => speed[0] > 0);
-
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={onPress}>
@@ -49,7 +47,7 @@ const SensorData = ({ onPress }) => {
             )
           }
 
-          {!!activeFans.length && <Fans fans={activeFans} />}
+          {!!fans && <Fans fans={fans} />}
 
           {
             !!cpu && (

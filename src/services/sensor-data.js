@@ -2,18 +2,18 @@ import logger from '../util/logger';
 
 const mockData = () => ({
   cpu: {
-    temperature: [20, '*C'],
-    utilization: [20, 'rpm'],
+    temperature: { value: 20, unit: '*C' },
+    utilization: { value: 20, unit: 'rpm' },
     name: '111111ssssssssssssssssssss111111111',
-    fanspeed: [1000, 'rpm'],
-    memory: [20, '%'],
+    fanspeed: { value: 1000, unit: 'rpm' },
+    memory: { value: 20, unit: '%' },
   },
   gpu: {
-    temperature: [20, '*C'],
-    utilization: [20, 'rpm'],
+    temperature: { value: 20, unit: '*C' },
+    utilization: { value: 20, unit: 'rpm' },
     name: '111111ssssssssssssssssssss111111111',
-    fanspeed: [1000, 'rpm'],
-    memory: [20, '%'],
+    fanspeed: { value: 1000, unit: 'rpm' },
+    memory: { value: 20, unit: '%' },
   },
   fans: [
     { name: 'fan 1', speed: [888, 'rpm'] },
@@ -37,7 +37,7 @@ export const fetchSensorData = async (serverUri, { DEBUG } = {}) => {
   try {
     const endPoint = `${serverUri.toLowerCase()}/sensors`;
     const response = await fetch(endPoint);
-
+    // TODO: status 500
     return response.json();
   } catch (err) {
     logger.error('fetchSensorData', err);

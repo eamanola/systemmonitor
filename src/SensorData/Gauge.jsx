@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, StyleSheet } from 'react-native';
 
-import { valueArray } from '../prop-types';
+import { valueObj } from '../prop-types';
 import gstyles from '../styles';
 
 import CircularProgress from './CircularProgress';
@@ -23,22 +23,22 @@ const DEFAULT_SIZE = 160
 
 const temperatureSize = (size) => size;
 const temperatureThickness = () => TEMPERATURE_WIDTH;
-const temperatureProgress = (temperature) => (temperature[0] / 100) * 100;
+const temperatureProgress = (temperature) => (temperature.value / 100) * 100;
 
 const memorySize = (size) => temperatureSize(size) - 2 * temperatureThickness();
-const memoryThickness = (memory) => (memory[0] ? MEMORY_WIDTH : 0);
-const memoryProgress = (memory) => memory[0];
+const memoryThickness = (memory) => (memory.value ? MEMORY_WIDTH : 0);
+const memoryProgress = (memory) => memory.value;
 
 const utilizationSize = (size, memory) => memorySize(size) - 2 * memoryThickness(memory);
 const utilizationThickness = () => UTILIZATION_WIDTH;
-const utilizationProgress = (utilization) => utilization[0];
+const utilizationProgress = (utilization) => utilization.value;
 
 const Gauge = ({
-  temperature = [0, ''],
-  utilization = [0, ''],
+  temperature = { value: 0 },
+  utilization = { value: 0 },
   name = '',
-  fanspeed = [0, ''],
-  memory = [0, ''],
+  fanspeed = { value: 0 },
+  memory = { value: 0 },
   size = DEFAULT_SIZE,
 }) => (
   <View style={[styles.gauge, { width: size, height: size, borderRadius: (size / 2) }]}>
@@ -47,8 +47,8 @@ const Gauge = ({
       thickness={temperatureThickness()}
       progress={temperatureProgress(temperature)}
       color="orange"
-      colorSecondary={temperature[0] > 70 ? '#ff0000' : ''}
-      backgroundColor={temperature[0] > 0 ? 'yellow' : ''}
+      colorSecondary={temperature.value > 70 ? '#ff0000' : ''}
+      backgroundColor={temperature.value > 0 ? 'yellow' : ''}
     >
       <CircularProgress
         size={memorySize(size)}
@@ -63,13 +63,13 @@ const Gauge = ({
           color="#00FF00"
         >
           <View>
-            { !!temperature[0] && (
+            { !!temperature.value && (
               <View style={styles.temperatureRow}>
                 <Text style={[styles.textStyle, { fontSize: 42 }]}>
-                  {temperature[0].toFixed(1)}
+                  {temperature.value.toFixed(1)}
                 </Text>
                 <Text style={[styles.textStyle, { fontSize: 24 }]}>
-                  {temperature[1]}
+                  {temperature.unit}
                 </Text>
               </View>
             )}
@@ -78,10 +78,10 @@ const Gauge = ({
                 {name}
               </Text>
             )}
-            {!!fanspeed[0] && (
+            {!!fanspeed.value && (
               <View>
                 <Text style={[styles.textStyle, { fontSize: 24 }]}>
-                  {fanspeed.join(' ')}
+                  {`${fanspeed.value} ${fanspeed.unit}`}
                 </Text>
                 <Text style={[styles.textStyle, { fontSize: 12 }]}>
                   Fan
@@ -97,11 +97,11 @@ const Gauge = ({
 
 Gauge.propTypes = {
   size: PropTypes.number,
-  temperature: valueArray,
-  utilization: valueArray,
+  temperature: valueObj,
+  utilization: valueObj,
   name: PropTypes.string,
-  fanspeed: valueArray,
-  memory: valueArray,
+  fanspeed: valueObj,
+  memory: valueObj,
 };
 
 export default Gauge;

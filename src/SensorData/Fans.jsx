@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 
 import useOrientation from '../util/use-orientation';
-import { valueArray } from '../prop-types';
+import { valueObj } from '../prop-types';
 import { GAP } from '../styles';
 
 import Fan from './Fan';
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   fans: { gap: GAP, flexWrap: 'wrap', justifyContent: 'center' },
 });
 
-const Fans = ({ fans = [] }) => {
+const Fans = ({ fans }) => {
   const { isPortrait, width, height } = useOrientation();
 
   const fansStyles = {
@@ -21,9 +21,11 @@ const Fans = ({ fans = [] }) => {
     flexDirection: isPortrait ? '' : 'row',
   };
 
-  return fans.length > 0 && (
+  const activeFans = fans.filter(({ speed }) => speed.value > 0);
+
+  return activeFans.length > 0 && (
     <View style={[styles.fans, fansStyles]}>
-      {fans.map(({ name, speed }) => (
+      {activeFans.map(({ name, speed }) => (
         <Fan key={Math.random()} name={name} speed={speed} />
       ))}
     </View>
@@ -33,8 +35,8 @@ const Fans = ({ fans = [] }) => {
 Fans.propTypes = {
   fans: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    speed: valueArray.isRequired,
-  })),
+    speed: valueObj.isRequired,
+  })).isRequired,
 };
 
 export default Fans;

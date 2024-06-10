@@ -32,11 +32,15 @@ Features:
 
 - theme support
 
-- general linux backend
+### backend
+
+- general linux backend (fan mapping & naming)
+
+- sample implementation for ati gpu
 
 - general windows backend
 
-### help wanted
+## help wanted
 
 - general dev fun
 
@@ -74,19 +78,19 @@ https://github.com/eamanola/sensors-server
 {
     cpu: {
         name: string,
-        fanspeed: [value: number, unit: string],
-        temperture: [value: number, unit: string],
-        utilization: [value: number(0-100), unit: '%'],
+        fanspeed: { value: number, unit: string },
+        temperture: { value: number, unit: string },
+        utilization: { value: number(in percent 0-100), unit: '%' },
     },
     gpu: {
         name: string,
-        fanspeed: [value: number, unit: string],
-        temperture: [value: number, unit: string],
-        utilization: [value: number(0-100), unit: '%'],
-        memory: [value: number(0-100), unit: '%'],
+        fanspeed: { value: number, unit: string },
+        temperture: { value: number, unit: string },
+        utilization: { value: number(in percent 0-100), unit: '%' },
+        memory: { value: number(in percent 0-100), unit: '%' },
     },
     fans: [
-        { name: string, speed: [value: number, unit: string] },
+        { name: string, speed: { value: number, unit: string } },
         ...
     ]
 }

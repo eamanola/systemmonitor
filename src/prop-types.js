@@ -29,4 +29,9 @@ export const valueArray = PropTypes.arrayOf(
   ),
 );
 
+export const valueObj = PropTypes.shape({
+  value: PropTypes.number.isRequired,
+  unit: PropTypes.string.isRequired,
+});
+
 export default null;
