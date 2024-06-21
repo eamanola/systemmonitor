@@ -25,7 +25,7 @@ const onSelectBackground = (onChange) => async () => {
       mode: 'open',
       requestLongTermAccess: true,
       type: [types.video, types.images],
-      copyTo: 'cachesDirectory',
+      copyTo: 'documentDirectory',
     });
 
     const {
@@ -52,6 +52,7 @@ const BackgroundSelector = ({ onChange, background }) => (
       title="remove"
       onPress={() => onChange(null)}
       color={dangerButtonColor}
+      disabled={!background.uri}
     />
 
     <Text style={{ flex: 1 }}>{background.name}</Text>
