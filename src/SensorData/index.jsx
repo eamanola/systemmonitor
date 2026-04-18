@@ -56,6 +56,7 @@ const SensorData = ({ onPress }) => {
                 name={cpu.name}
                 temperature={cpu.temperature}
                 utilization={cpu.utilization}
+                memory={cpu.memory}
               />
             )
           }

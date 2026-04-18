@@ -63,7 +63,7 @@ const Gauge = ({
           color="#00FF00"
         >
           <View>
-            { !!temperature.value && (
+            {!!temperature.value && (
               <View style={styles.temperatureRow}>
                 <Text style={[styles.textStyle, { fontSize: 42 }]}>
                   {temperature.value.toFixed(1)}
@@ -73,7 +73,7 @@ const Gauge = ({
                 </Text>
               </View>
             )}
-            { !!name && (
+            {!!name && (
               <Text style={[styles.textStyle, { fontSize: 12 }]}>
                 {name}
               </Text>
