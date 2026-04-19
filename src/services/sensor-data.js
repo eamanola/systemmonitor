@@ -15,6 +15,10 @@ const mockData = () => ({
     fanspeed: { value: 1000, unit: 'rpm' },
     memory: { value: 20, unit: '%' },
   },
+  memory: {
+    ram: { value: 20, unit: '%' },
+    vram: { value: 20, unit: '%' },
+  },
   fans: [
     { name: 'fan 1', speed: [888, 'rpm'] },
     { name: 'fan 2', speed: [888, 'rpm'] },
@@ -37,6 +41,7 @@ export const fetchSensorData = async (serverUri, { DEBUG } = {}) => {
   try {
     const endPoint = `${serverUri.toLowerCase()}/sensors`;
     const response = await fetch(endPoint);
+
     // TODO: status 500
     return response.json();
   } catch (err) {

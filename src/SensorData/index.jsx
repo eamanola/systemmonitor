@@ -28,38 +28,36 @@ const styles = StyleSheet.create({
 });
 
 const SensorData = ({ onPress }) => {
-  const { cpu, gpu, fans } = useSelector(({ sensors }) => sensors);
+  const {
+    cpu, gpu, memory, fans,
+  } = useSelector(({ sensors }) => sensors);
   const { isPortrait } = useOrientation();
 
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={[styles.content, isPortrait && styles.contentPOR]}>
-          {
-            !!gpu && (
-              <Gauge
-                fanspeed={gpu.fanspeed}
-                name={gpu.name}
-                temperature={gpu.temperature}
-                utilization={gpu.utilization}
-                memory={gpu.memory}
-              />
-            )
-          }
+          {!!gpu && (
+            <Gauge
+              fanspeed={gpu.fanspeed}
+              name={gpu.name}
+              temperature={gpu.temperature}
+              utilization={gpu.utilization}
+              memory={memory.vram}
+            />
+          )}
 
           {!!fans && <Fans fans={fans} />}
 
-          {
-            !!cpu && (
-              <Gauge
-                fanspeed={cpu.fanspeed}
-                name={cpu.name}
-                temperature={cpu.temperature}
-                utilization={cpu.utilization}
-                memory={cpu.memory}
-              />
-            )
-          }
+          {!!cpu && (
+            <Gauge
+              fanspeed={cpu.fanspeed}
+              name={cpu.name}
+              temperature={cpu.temperature}
+              utilization={cpu.utilization}
+              memory={memory.ram}
+            />
+          )}
         </View>
       </TouchableWithoutFeedback>
     </View>
