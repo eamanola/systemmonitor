@@ -55,6 +55,7 @@ const Gauge = ({
         thickness={memoryThickness(memory)}
         progress={memoryProgress(memory)}
         color="blue"
+        backgroundColor="yellow"
       >
         <CircularProgress
           size={utilizationSize(size, memory)}
